@@ -1,6 +1,6 @@
 name: ParticleAPI
 version: '${version}'
-main: gerasiov.net.particleapi.ParticleAPI
+main: net.gerasiov.particleapi.ParticleAPI
 api-version: 1.19
 prefix: [ ParticleAPI ]:
 authors: [ gerasiov ]

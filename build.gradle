@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group = 'gerasiov.net'
+group = 'net.gerasiov'
 version = '0.0.1'
 
 repositories {

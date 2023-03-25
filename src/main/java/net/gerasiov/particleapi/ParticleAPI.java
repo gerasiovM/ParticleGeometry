@@ -1,7 +1,6 @@
-package gerasiov.net.particleapi;
+package net.gerasiov.particleapi;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Particle;
 import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 

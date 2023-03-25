@@ -1,4 +1,4 @@
-package gerasiov.net.particleapi.geometry;
+package net.gerasiov.particleapi.geometry;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
