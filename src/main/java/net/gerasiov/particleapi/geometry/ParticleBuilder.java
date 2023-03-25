@@ -13,7 +13,7 @@ public class ParticleBuilder {
 
     public ParticleBuilder() { }
 
-    public Particle buildParticle() {
+    public Particle build() {
         return new Particle(_location, _type, _force);
     }
 
