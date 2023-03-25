@@ -1,0 +1,7 @@
+name: ParticleAPI
+version: '${version}'
+main: gerasiov.net.particleapi.ParticleAPI
+api-version: 1.19
+prefix: [ ParticleAPI ]:
+authors: [ gerasiov ]
+description: gerasiov's API for easier development of effects that use particles.
