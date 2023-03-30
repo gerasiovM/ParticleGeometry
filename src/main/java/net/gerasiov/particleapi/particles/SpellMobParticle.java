@@ -6,7 +6,7 @@ import org.bukkit.Location;
 import org.bukkit.Particle;
 
 public class SpellMobParticle implements ParticlePoint{
-    private Particle type;
+    private final Particle type;
     private Location location;
     private double red;
     private double green;

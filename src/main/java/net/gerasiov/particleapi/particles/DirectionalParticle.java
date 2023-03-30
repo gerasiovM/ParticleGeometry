@@ -21,7 +21,7 @@ public class DirectionalParticle implements ParticlePoint{
      * @param type The particle type. Should be one of the {@link DirectionalParticleTypes} values.
      * @param speed The particle speed.
      */
-    public DirectionalParticle(Location startLocation, Vector direction, Particle type, double speed) {
+    public DirectionalParticle( Particle type, Location startLocation, Vector direction, double speed) {
         if (!DirectionalParticleTypes.contains(type)) {
             throw new IllegalArgumentException("Invalid particle type provided.");
         }
