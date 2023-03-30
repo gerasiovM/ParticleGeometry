@@ -1,5 +1,6 @@
 package net.gerasiov.particleapi.particles;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -44,7 +45,11 @@ public class DustParticle implements ParticlePoint{
 
     @Override
     public Particle getType() {
-        return Particle.REDSTONE;
+        if (secondaryColor == null) {
+            return Particle.REDSTONE;
+        } else {
+            return Particle.DUST_COLOR_TRANSITION;
+        }
     }
 
     @Override
@@ -88,7 +93,7 @@ public class DustParticle implements ParticlePoint{
             location.getWorld().spawnParticle(Particle.REDSTONE, location, 1, dustOptions);
         } else {
             DustTransition dustTransition = new DustTransition(color, secondaryColor, size);
-            location.getWorld().spawnParticle(Particle.REDSTONE, location, 1, dustTransition);
+            location.getWorld().spawnParticle(Particle.DUST_COLOR_TRANSITION, location, 1, dustTransition);
         }
     }
 }
