@@ -1,15 +1,10 @@
 package net.gerasiov.particleapi.particles;
 
-import net.gerasiov.particleapi.ParticleAPI;
 import net.gerasiov.particleapi.particles.types.DirectionalParticleTypes;
-import org.bukkit.Bukkit;
-import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.util.Vector;
 
-import java.util.EnumSet;
-import java.util.List;
 
 public class DirectionalParticle implements ParticlePoint{
     private Location startLocation;
@@ -17,15 +12,19 @@ public class DirectionalParticle implements ParticlePoint{
     private final Particle type;
     private double speed;
 
+
+    /**
+     * Creates a new {@link DirectionalParticle} object with the specified parameters.
+     *
+     * @param startLocation The start location of the particle. This is where it will spawn.
+     * @param direction The direction in which the particle will travel.
+     * @param type The particle type. Should be one of the {@link DirectionalParticleTypes} values.
+     * @param speed The particle speed.
+     */
     public DirectionalParticle(Location startLocation, Vector direction, Particle type, double speed) {
         if (!DirectionalParticleTypes.contains(type)) {
             throw new IllegalArgumentException("Invalid particle type provided.");
         }
-
-        // Don't know if negative speed provides an error while spawning, so this will be here for now.
-//        if (speed <= 0) {
-//            throw new IllegalArgumentException("Invalid speed provided. Speed must be >0");
-//        }
 
         this.startLocation = startLocation;
         this.direction = direction;
