@@ -9,10 +9,6 @@ public interface ParticlePoint {
 
     Location getLocation();
 
-    boolean isForce();
-
-    void setForce(boolean force);
-
     void setLocation(Location location);
 
     void spawn();
