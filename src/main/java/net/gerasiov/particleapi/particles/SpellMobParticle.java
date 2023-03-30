@@ -1,5 +1,6 @@
 package net.gerasiov.particleapi.particles;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -27,6 +28,7 @@ public class SpellMobParticle implements ParticlePoint{
             throw new IllegalArgumentException("Invalid particle type provided");
         }
 
+        this.type = type;
         this.location = location;
         this.red = color.getRed() / 255D;
         this.green = color.getGreen() / 255D;
@@ -49,6 +51,7 @@ public class SpellMobParticle implements ParticlePoint{
             throw new IllegalArgumentException("Invalid particle type provided");
         }
 
+        this.type = type;
         this.location = location;
         this.red = red / 255D;
         this.green = green / 255D;
