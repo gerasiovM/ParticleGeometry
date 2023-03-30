@@ -1,6 +1,5 @@
 package net.gerasiov.particleapi.particles;
 
-import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 
