@@ -19,6 +19,10 @@ public class ParticleGroup {
         return particles;
     }
 
+    public ParticlePoint getParticle(int index) {
+        return particles.get(index);
+    }
+
     public void setParticle(int index, ParticlePoint particle) {
         particles.set(index, particle);
     }
@@ -44,6 +48,6 @@ public class ParticleGroup {
                 particles.get(index).spawn();
                 index++;
             }
-        }.runTaskTimerAsynchronously(ParticleAPI.getInstance(), delay, period);
+        }.runTaskTimerAsynchronously(ParticleAPI.instance, delay, period);
     }
 }
