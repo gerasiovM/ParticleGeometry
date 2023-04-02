@@ -58,8 +58,14 @@ public class NoteParticle implements ParticlePoint {
     }
 
     @Override
+    public NoteParticle clone() {
+        return new NoteParticle(this.location, this.note);
+    }
+
+    @Override
     public void spawn() {
         location.getWorld().spawnParticle(Particle.NOTE, location, 0, note, 0, 0, 1);
     }
+
 
 }

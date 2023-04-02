@@ -87,6 +87,11 @@ public class DustParticle implements ParticlePoint{
     }
 
     @Override
+    public DustParticle clone() {
+        return new DustParticle(this.location, this.color, this.secondaryColor, this.size);
+    }
+
+    @Override
     public void spawn() {
         if (secondaryColor == null) {
             DustOptions dustOptions = new DustOptions(color, size);

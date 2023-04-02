@@ -64,6 +64,11 @@ public class DirectionalParticle implements ParticlePoint{
     }
 
     @Override
+    public DirectionalParticle clone() {
+        return new DirectionalParticle(this.type, this.startLocation, this.direction, this.speed);
+    }
+
+    @Override
     public void spawn() {
         startLocation.getWorld().spawnParticle(type, startLocation, 0, direction.getX(), direction.getY(), direction.getZ(), speed);
     }
