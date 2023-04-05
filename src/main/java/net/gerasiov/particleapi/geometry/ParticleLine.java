@@ -78,6 +78,10 @@ public class ParticleLine extends ParticleGroup {
         return this.scheme;
     }
 
+    public int getLength() {
+        return this.particles.length;
+    }
+
     public void setStartLocation(Location startLocation) {
         this.startLocation = startLocation;
         this.interval = calculateRealInterval(this.startLocation, this.endLocation, this.interval);
