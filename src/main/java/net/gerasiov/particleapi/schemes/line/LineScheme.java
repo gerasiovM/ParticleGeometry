@@ -11,6 +11,13 @@ public class LineScheme {
         this.particle = particle;
     }
 
+    /**
+     * Creates an array of ParticlePoints along the line between the given start and end locations, with a given interval.
+     *
+     * @param startLocation the starting Location of the line
+     * @param endLocation the ending Location of the line
+     * @param interval the distance between each ParticlePoint on the line
+     */
     public ParticlePoint[] createArray(Location startLocation, Location endLocation, double interval) {
         double distance = endLocation.toVector().subtract(startLocation.toVector()).length();
         int numberOfParticles = (int) (Math.round(distance / interval));
