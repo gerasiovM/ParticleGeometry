@@ -4,27 +4,21 @@ import net.gerasiov.particleapi.ParticleAPI;
 import net.gerasiov.particleapi.particles.ParticlePoint;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.List;
-
 public class ParticleGroup {
-    private List<ParticlePoint> particles;
+    private ParticlePoint[] particles;
 
 
-    public ParticleGroup(List<ParticlePoint> particles) {
+    public ParticleGroup(ParticlePoint[] particles) {
         this.particles = particles;
     }
 
 
-    public List<ParticlePoint> getParticles() {
+    public ParticlePoint[] getParticles() {
         return particles;
     }
 
     public ParticlePoint getParticle(int index) {
-        return particles.get(index);
-    }
-
-    public void setParticle(int index, ParticlePoint particle) {
-        particles.set(index, particle);
+        return particles[index];
     }
 
     public void spawn() {
@@ -45,8 +39,11 @@ public class ParticleGroup {
 
             @Override
             public void run() {
-                particles.get(index).spawn();
+                particles[index].spawn();
                 index++;
+                if (index == particles.length) {
+                    cancel();
+                }
             }
         }.runTaskTimerAsynchronously(ParticleAPI.instance, delay, period);
     }
