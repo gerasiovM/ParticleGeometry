@@ -10,6 +10,8 @@ public interface ParticlePoint {
 
     void setLocation(Location location);
 
+    ParticlePoint clone();
+
     void spawn();
 
 }

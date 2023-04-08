@@ -30,6 +30,11 @@ public class RegularParticle implements ParticlePoint {
     }
 
     @Override
+    public RegularParticle clone() {
+        return new RegularParticle(this.type, this.location);
+    }
+
+    @Override
     public void spawn() {
         location.getWorld().spawnParticle(type, location, 1);
     }

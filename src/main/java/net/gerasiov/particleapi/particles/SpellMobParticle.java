@@ -18,7 +18,7 @@ public class SpellMobParticle implements ParticlePoint{
     /**
      * Creates a new {@link SpellMobParticle} object with the specified parameters.
      *
-     * @param type Particle type. Can be either {@link Particle#SPELL_MOB} or {@link Particle#SPELL_MOB_AMBIENT}
+     * @param type Particle type. Can be either {@link Particle#SPELL_MOB} or {@link Particle#SPELL_MOB_AMBIENT}.
      * @param location The location for the particle.
      * @param color The color for the particle.
      * @param extra The extra value for the particle. Presumably alpha, 1D should produce normal results.
@@ -39,11 +39,11 @@ public class SpellMobParticle implements ParticlePoint{
     /**
      * Creates a new {@link SpellMobParticle} object with the specified parameters.
      *
-     * @param type Particle type. Can be either {@link Particle#SPELL_MOB} or {@link Particle#SPELL_MOB_AMBIENT}
+     * @param type Particle type. Can be either {@link Particle#SPELL_MOB} or {@link Particle#SPELL_MOB_AMBIENT}.
      * @param location The location for the particle.
-     * @param red The red component of the color;
-     * @param green The green component of the color;
-     * @param blue The blue component of the color;
+     * @param red The red component of the color.;
+     * @param green The green component of the color.;
+     * @param blue The blue component of the color.;
      * @param extra The extra value for the particle. Presumably alpha, 1D should produce normal results.
      */
     public SpellMobParticle(Particle type, Location location, int red, int green, int blue, double extra) {
@@ -56,6 +56,29 @@ public class SpellMobParticle implements ParticlePoint{
         this.red = red / 255D;
         this.green = green / 255D;
         this.blue = blue / 255D;
+        this.extra = extra;
+    }
+
+    /**
+     * Creates a new {@link SpellMobParticle} object with the specified parameters.
+     *
+     * @param type Particle type. Can be either {@link Particle#SPELL_MOB} or {@link Particle#SPELL_MOB_AMBIENT}.
+     * @param location The location for the particle.
+     * @param red The red component of the color. The value must be a double between 0 and 1, also divisible by 1/255.;
+     * @param green The green component of the color. The value must be a double between 0 and 1, also divisible by 1/255.;
+     * @param blue The blue component of the colo. The value must be a double between 0 and 1, also divisible by 1/255.;
+     * @param extra The extra value for the particle. Presumably alpha, 1D should produce normal results.
+     */
+    public SpellMobParticle(Particle type, Location location, double red, double green, double blue, double extra) {
+        if (!(type == Particle.SPELL_MOB || type == Particle.SPELL_MOB_AMBIENT)) {
+            throw new IllegalArgumentException("Invalid particle type provided");
+        }
+
+        this.type = type;
+        this.location = location;
+        this.red = red;
+        this.green = green;
+        this.blue = blue;
         this.extra = extra;
     }
 
@@ -110,6 +133,11 @@ public class SpellMobParticle implements ParticlePoint{
         this.red = color.getRed() / 255D;
         this.green = color.getGreen() / 255D;
         this.blue = color.getBlue() / 255D;
+    }
+
+    @Override
+    public SpellMobParticle clone() {
+        return new SpellMobParticle(this.type, this.location, this.red, this.green, this.blue, this.extra);
     }
 
     @Override
