@@ -1,5 +1,8 @@
 package net.gerasiov.particleapi.particles;
 
+import net.gerasiov.particleapi.ParticleAPI;
+import net.gerasiov.particleapi.events.ParticleSpawnEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 
@@ -36,6 +39,11 @@ public class RegularParticle implements ParticlePoint {
 
     @Override
     public void spawn() {
-        location.getWorld().spawnParticle(type, location, 1);
+        ParticleSpawnEvent particleSpawnEvent = new ParticleSpawnEvent(this);
+        Bukkit.getServer().getPluginManager().callEvent(particleSpawnEvent);
+
+        if (!particleSpawnEvent.isCancelled()) {
+            location.getWorld().spawnParticle(type, location, 1);
+        }
     }
 }

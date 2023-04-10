@@ -1,6 +1,8 @@
 package net.gerasiov.particleapi.particles;
 
+import net.gerasiov.particleapi.events.ParticleSpawnEvent;
 import net.gerasiov.particleapi.particles.types.DirectionalParticleTypes;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.util.Vector;
@@ -70,6 +72,11 @@ public class DirectionalParticle implements ParticlePoint{
 
     @Override
     public void spawn() {
-        startLocation.getWorld().spawnParticle(type, startLocation, 0, direction.getX(), direction.getY(), direction.getZ(), speed);
+        ParticleSpawnEvent particleSpawnEvent = new ParticleSpawnEvent(this);
+        Bukkit.getServer().getPluginManager().callEvent(particleSpawnEvent);
+
+        if (!particleSpawnEvent.isCancelled()) {
+            startLocation.getWorld().spawnParticle(type, startLocation, 0, direction.getX(), direction.getY(), direction.getZ(), speed);
+        }
     }
 }
