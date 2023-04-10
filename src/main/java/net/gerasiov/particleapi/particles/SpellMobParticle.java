@@ -1,5 +1,6 @@
 package net.gerasiov.particleapi.particles;
 
+import net.gerasiov.particleapi.events.ParticleSpawnEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Location;
@@ -142,6 +143,11 @@ public class SpellMobParticle implements ParticlePoint{
 
     @Override
     public void spawn() {
-        location.getWorld().spawnParticle(type, location, 0, red, green, blue, extra);
+        ParticleSpawnEvent particleSpawnEvent = new ParticleSpawnEvent(this);
+        Bukkit.getServer().getPluginManager().callEvent(particleSpawnEvent);
+
+        if (!particleSpawnEvent.isCancelled()) {
+            location.getWorld().spawnParticle(type, location, 0, red, green, blue, extra);
+        }
     }
 }
