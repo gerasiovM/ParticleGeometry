@@ -1,7 +1,9 @@
 package net.gerasiov.particleapi.geometry;
 
 import net.gerasiov.particleapi.ParticleAPI;
+import net.gerasiov.particleapi.events.ParticleGroupSpawnEvent;
 import net.gerasiov.particleapi.particles.ParticlePoint;
+import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class ParticleGroup {
@@ -22,8 +24,12 @@ public class ParticleGroup {
     }
 
     public void spawn() {
-        for (ParticlePoint particle: particles) {
-            particle.spawn();
+        ParticleGroupSpawnEvent event = new ParticleGroupSpawnEvent(this);
+        Bukkit.getServer().getPluginManager().callEvent(event);
+        if (!event.isCancelled()) {
+            for (ParticlePoint particle : particles) {
+                particle.spawn();
+            }
         }
     }
 
@@ -34,17 +40,24 @@ public class ParticleGroup {
      * @param period Period between every spawn in ticks.
      */
     public void spawnWithDelays(int delay, int period) {
-        new BukkitRunnable() {
-            int index = 0;
+        ParticleGroupSpawnEvent event = new ParticleGroupSpawnEvent(this);
+        Bukkit.getServer().getPluginManager().callEvent(event);
+        if (!event.isCancelled()) {
+            new BukkitRunnable() {
+                int index = 0;
 
-            @Override
-            public void run() {
-                particles[index].spawn();
-                index++;
-                if (index == particles.length) {
-                    cancel();
+                @Override
+                public void run() {
+                    if (event.isCancelled()) {
+                        cancel();
+                    }
+                    particles[index].spawn();
+                    index++;
+                    if (index == particles.length) {
+                        cancel();
+                    }
                 }
-            }
-        }.runTaskTimerAsynchronously(ParticleAPI.instance, delay, period);
+            }.runTaskTimer(ParticleAPI.instance, delay, period);
+        }
     }
 }
