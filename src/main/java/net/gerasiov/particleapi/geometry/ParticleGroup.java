@@ -1,6 +1,7 @@
 package net.gerasiov.particleapi.geometry;
 
 import net.gerasiov.particleapi.ParticleAPI;
+import net.gerasiov.particleapi.ParticleSpawnInjector;
 import net.gerasiov.particleapi.events.ParticleGroupSpawnEvent;
 import net.gerasiov.particleapi.particles.ParticlePoint;
 import org.bukkit.Bukkit;
@@ -51,6 +52,36 @@ public class ParticleGroup {
                     if (event.isCancelled()) {
                         cancel();
                     }
+                    particles[index].spawn();
+                    index++;
+                    if (index == particles.length) {
+                        cancel();
+                    }
+                }
+            }.runTaskTimer(ParticleAPI.instance, delay, period);
+        }
+    }
+
+    /**
+     * Spawn all particles in group with a period between each spawn.
+     *
+     * @param delay Delay before the first spawn in ticks.
+     * @param period Period between every spawn in ticks.
+     * @param injector An object that allows the user to inject their own code
+     */
+    public void spawnWithDelays(int delay, int period, ParticleSpawnInjector injector) {
+        ParticleGroupSpawnEvent event = new ParticleGroupSpawnEvent(this);
+        Bukkit.getServer().getPluginManager().callEvent(event);
+        if (!event.isCancelled()) {
+            new BukkitRunnable() {
+                int index = 0;
+
+                @Override
+                public void run() {
+                    if (event.isCancelled()) {
+                        cancel();
+                    }
+                    injector.reply(index);
                     particles[index].spawn();
                     index++;
                     if (index == particles.length) {
