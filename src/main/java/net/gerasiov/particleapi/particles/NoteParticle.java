@@ -4,6 +4,10 @@ import net.gerasiov.particleapi.events.ParticleSpawnEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
+import org.bukkit.entity.Entity;
+
+import java.util.Collection;
+import java.util.function.Predicate;
 
 public class NoteParticle implements ParticlePoint {
     private Location location;
@@ -62,6 +66,16 @@ public class NoteParticle implements ParticlePoint {
     @Override
     public NoteParticle clone() {
         return new NoteParticle(this.location, this.note);
+    }
+
+    @Override
+    public Collection<Entity> getNearbyEntities(double radiusX, double radiusY, double radiusZ) {
+        return this.location.getWorld().getNearbyEntities(this.location, radiusX, radiusY, radiusZ);
+    }
+
+    @Override
+    public Collection<Entity> getNearbyEntities(double radiusX, double radiusY, double radiusZ, Predicate<Entity> filter) {
+        return this.location.getWorld().getNearbyEntities(this.location, radiusX, radiusY, radiusZ, filter);
     }
 
     @Override

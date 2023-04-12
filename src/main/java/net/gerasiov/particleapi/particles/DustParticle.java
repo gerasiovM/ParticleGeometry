@@ -7,6 +7,10 @@ import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
 import org.bukkit.Particle.DustTransition;
+import org.bukkit.entity.Entity;
+
+import java.util.Collection;
+import java.util.function.Predicate;
 
 public class DustParticle implements ParticlePoint{
     private Location location;
@@ -90,6 +94,16 @@ public class DustParticle implements ParticlePoint{
     @Override
     public DustParticle clone() {
         return new DustParticle(this.location, this.color, this.secondaryColor, this.size);
+    }
+
+    @Override
+    public Collection<Entity> getNearbyEntities(double radiusX, double radiusY, double radiusZ) {
+        return this.location.getWorld().getNearbyEntities(this.location, radiusX, radiusY, radiusZ);
+    }
+
+    @Override
+    public Collection<Entity> getNearbyEntities(double radiusX, double radiusY, double radiusZ, Predicate<Entity> filter) {
+        return this.location.getWorld().getNearbyEntities(this.location, radiusX, radiusY, radiusZ, filter);
     }
 
     @Override

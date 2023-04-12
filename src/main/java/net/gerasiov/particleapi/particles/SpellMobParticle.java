@@ -5,6 +5,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
+import org.bukkit.entity.Entity;
+
+import java.util.Collection;
+import java.util.function.Predicate;
 
 public class SpellMobParticle implements ParticlePoint{
     private final Particle type;
@@ -139,6 +143,16 @@ public class SpellMobParticle implements ParticlePoint{
     @Override
     public SpellMobParticle clone() {
         return new SpellMobParticle(this.type, this.location, this.red, this.green, this.blue, this.extra);
+    }
+
+    @Override
+    public Collection<Entity> getNearbyEntities(double radiusX, double radiusY, double radiusZ) {
+        return this.location.getWorld().getNearbyEntities(this.location, radiusX, radiusY, radiusZ);
+    }
+
+    @Override
+    public Collection<Entity> getNearbyEntities(double radiusX, double radiusY, double radiusZ, Predicate<Entity> filter) {
+        return this.location.getWorld().getNearbyEntities(this.location, radiusX, radiusY, radiusZ, filter);
     }
 
     @Override
