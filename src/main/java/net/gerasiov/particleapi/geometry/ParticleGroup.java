@@ -3,32 +3,45 @@ package net.gerasiov.particleapi.geometry;
 import net.gerasiov.particleapi.ParticleAPI;
 import net.gerasiov.particleapi.ParticleSpawnInjector;
 import net.gerasiov.particleapi.events.ParticleGroupSpawnEvent;
-import net.gerasiov.particleapi.particles.ParticlePoint;
+import net.gerasiov.particleapi.particles.RegularParticle;
+import net.gerasiov.particleapi.schemes.SpawnScheme;
+import net.gerasiov.particleapi.schemes.spawn.line.SpawnLineScheme;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class ParticleGroup {
-    private ParticlePoint[] particles;
+    private RegularParticle[] particles;
+    final private SpawnScheme spawnScheme;
 
 
-    public ParticleGroup(ParticlePoint[] particles) {
+    public ParticleGroup(RegularParticle[] particles) {
         this.particles = particles;
+        this.spawnScheme = new SpawnLineScheme();
+    }
+
+    public ParticleGroup(RegularParticle[] particles, SpawnScheme spawnScheme) {
+        this.particles = particles;
+        this.spawnScheme = spawnScheme;
     }
 
 
-    public ParticlePoint[] getParticles() {
+    public RegularParticle[] getParticles() {
         return particles;
     }
 
-    public ParticlePoint getParticle(int index) {
+    public RegularParticle getParticle(int index) {
         return particles[index];
+    }
+
+    public void setParticles(RegularParticle[] particles) {
+        this.particles = particles;
     }
 
     public void spawn() {
         ParticleGroupSpawnEvent event = new ParticleGroupSpawnEvent(this);
         Bukkit.getServer().getPluginManager().callEvent(event);
         if (!event.isCancelled()) {
-            for (ParticlePoint particle : particles) {
+            for (RegularParticle particle : particles) {
                 particle.spawn();
             }
         }
@@ -52,9 +65,11 @@ public class ParticleGroup {
                     if (event.isCancelled()) {
                         cancel();
                     }
-                    particles[index].spawn();
+                    for (int particleIndex: spawnScheme.getNextParticleIndexes(index)) {
+                        particles[particleIndex].spawn();
+                    }
                     index++;
-                    if (index == particles.length) {
+                    if (spawnScheme.isFinished(index, particles)) {
                         cancel();
                     }
                 }
@@ -82,9 +97,11 @@ public class ParticleGroup {
                         cancel();
                     }
                     injector.reply(index);
-                    particles[index].spawn();
+                    for (int particleIndex: spawnScheme.getNextParticleIndexes(index)) {
+                        particles[particleIndex].spawn();
+                    }
                     index++;
-                    if (index == particles.length) {
+                    if (spawnScheme.isFinished(index, particles)) {
                         cancel();
                     }
                 }
