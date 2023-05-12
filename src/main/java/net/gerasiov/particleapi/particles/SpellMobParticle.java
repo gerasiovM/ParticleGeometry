@@ -10,9 +10,7 @@ import org.bukkit.entity.Entity;
 import java.util.Collection;
 import java.util.function.Predicate;
 
-public class SpellMobParticle implements ParticlePoint{
-    private final Particle type;
-    private Location location;
+public class SpellMobParticle extends RegularParticle{
     private double red;
     private double green;
     private double blue;
@@ -29,12 +27,10 @@ public class SpellMobParticle implements ParticlePoint{
      * @param extra The extra value for the particle. Presumably alpha, 1D should produce normal results.
      */
     public SpellMobParticle(Particle type, Location location, Color color, double extra) {
+        super(type, location);
         if (!(type == Particle.SPELL_MOB || type == Particle.SPELL_MOB_AMBIENT)) {
             throw new IllegalArgumentException("Invalid particle type provided");
         }
-
-        this.type = type;
-        this.location = location;
         this.red = color.getRed() / 255D;
         this.green = color.getGreen() / 255D;
         this.blue = color.getBlue() / 255D;
@@ -52,12 +48,10 @@ public class SpellMobParticle implements ParticlePoint{
      * @param extra The extra value for the particle. Presumably alpha, 1D should produce normal results.
      */
     public SpellMobParticle(Particle type, Location location, int red, int green, int blue, double extra) {
+        super(type, location);
         if (!(type == Particle.SPELL_MOB || type == Particle.SPELL_MOB_AMBIENT)) {
             throw new IllegalArgumentException("Invalid particle type provided");
         }
-
-        this.type = type;
-        this.location = location;
         this.red = red / 255D;
         this.green = green / 255D;
         this.blue = blue / 255D;
@@ -75,26 +69,14 @@ public class SpellMobParticle implements ParticlePoint{
      * @param extra The extra value for the particle. Presumably alpha, 1D should produce normal results.
      */
     public SpellMobParticle(Particle type, Location location, double red, double green, double blue, double extra) {
+        super(type, location);
         if (!(type == Particle.SPELL_MOB || type == Particle.SPELL_MOB_AMBIENT)) {
             throw new IllegalArgumentException("Invalid particle type provided");
         }
-
-        this.type = type;
-        this.location = location;
         this.red = red;
         this.green = green;
         this.blue = blue;
         this.extra = extra;
-    }
-
-    @Override
-    public Particle getType() {
-        return this.type;
-    }
-
-    @Override
-    public Location getLocation() {
-        return null;
     }
 
     public int getRed() {
@@ -111,11 +93,6 @@ public class SpellMobParticle implements ParticlePoint{
 
     public double getExtra() {
         return this.extra;
-    }
-
-    @Override
-    public void setLocation(Location location) {
-        this.location = location;
     }
 
     public void setRed(double red) {
@@ -142,17 +119,7 @@ public class SpellMobParticle implements ParticlePoint{
 
     @Override
     public SpellMobParticle clone() {
-        return new SpellMobParticle(this.type, this.location, this.red, this.green, this.blue, this.extra);
-    }
-
-    @Override
-    public Collection<Entity> getNearbyEntities(double radiusX, double radiusY, double radiusZ) {
-        return this.location.getWorld().getNearbyEntities(this.location, radiusX, radiusY, radiusZ);
-    }
-
-    @Override
-    public Collection<Entity> getNearbyEntities(double radiusX, double radiusY, double radiusZ, Predicate<Entity> filter) {
-        return this.location.getWorld().getNearbyEntities(this.location, radiusX, radiusY, radiusZ, filter);
+        return new SpellMobParticle(getType(), getLocation(), this.red, this.green, this.blue, this.extra);
     }
 
     @Override
@@ -161,7 +128,7 @@ public class SpellMobParticle implements ParticlePoint{
         Bukkit.getServer().getPluginManager().callEvent(particleSpawnEvent);
 
         if (!particleSpawnEvent.isCancelled()) {
-            location.getWorld().spawnParticle(type, location, 0, red, green, blue, extra);
+            getLocation().getWorld().spawnParticle(getType(), getLocation(), 0, red, green, blue, extra);
         }
     }
 }

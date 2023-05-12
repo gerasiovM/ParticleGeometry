@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class RegularParticle implements ParticlePoint {
+public class RegularParticle {
 
     private final Particle type;
     private Location location;
@@ -22,37 +22,30 @@ public class RegularParticle implements ParticlePoint {
         this.location = location;
     }
 
-    @Override
     public Particle getType() {
         return type;
     }
 
-    @Override
     public Location getLocation() {
         return location;
     }
 
-    @Override
     public void setLocation(Location location) {
         this.location = location;
     }
 
-    @Override
     public RegularParticle clone() {
         return new RegularParticle(this.type, this.location);
     }
 
-    @Override
     public Collection<Entity> getNearbyEntities(double radiusX, double radiusY, double radiusZ) {
         return this.location.getWorld().getNearbyEntities(this.location, radiusX, radiusY, radiusZ);
     }
 
-    @Override
     public Collection<Entity> getNearbyEntities(double radiusX, double radiusY, double radiusZ, Predicate<Entity> filter) {
         return this.location.getWorld().getNearbyEntities(this.location, radiusX, radiusY, radiusZ, filter);
     }
 
-    @Override
     public void spawn() {
         ParticleSpawnEvent particleSpawnEvent = new ParticleSpawnEvent(this);
         Bukkit.getServer().getPluginManager().callEvent(particleSpawnEvent);

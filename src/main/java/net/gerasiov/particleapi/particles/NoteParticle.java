@@ -9,8 +9,7 @@ import org.bukkit.entity.Entity;
 import java.util.Collection;
 import java.util.function.Predicate;
 
-public class NoteParticle implements ParticlePoint {
-    private Location location;
+public class NoteParticle extends RegularParticle {
     private double note;
 
 
@@ -21,7 +20,7 @@ public class NoteParticle implements ParticlePoint {
      * @param note The double value for note's color. Should be between 0 and 1 and also divisible by 1/24.
      */
     public NoteParticle(Location location, double note) {
-        this.location = location;
+        super(Particle.NOTE, location);
         this.note = note;
     }
 
@@ -31,28 +30,12 @@ public class NoteParticle implements ParticlePoint {
      * @param note The int value for note's color. Should be between 0 and 24.
      */
     public NoteParticle(Location location, int note) {
-        this.location = location;
+        super(Particle.NOTE, location);
         this.note = note / 24D;
-    }
-
-
-    @Override
-    public Particle getType() {
-        return Particle.NOTE;
-    }
-
-    @Override
-    public Location getLocation() {
-        return this.location;
     }
 
     public double getNote() {
         return this.note;
-    }
-
-    @Override
-    public void setLocation(Location location) {
-        this.location = location;
     }
 
     public void setNote(int note) {
@@ -65,17 +48,7 @@ public class NoteParticle implements ParticlePoint {
 
     @Override
     public NoteParticle clone() {
-        return new NoteParticle(this.location, this.note);
-    }
-
-    @Override
-    public Collection<Entity> getNearbyEntities(double radiusX, double radiusY, double radiusZ) {
-        return this.location.getWorld().getNearbyEntities(this.location, radiusX, radiusY, radiusZ);
-    }
-
-    @Override
-    public Collection<Entity> getNearbyEntities(double radiusX, double radiusY, double radiusZ, Predicate<Entity> filter) {
-        return this.location.getWorld().getNearbyEntities(this.location, radiusX, radiusY, radiusZ, filter);
+        return new NoteParticle(getLocation(), this.note);
     }
 
     @Override
@@ -84,7 +57,7 @@ public class NoteParticle implements ParticlePoint {
         Bukkit.getServer().getPluginManager().callEvent(particleSpawnEvent);
 
         if (!particleSpawnEvent.isCancelled()) {
-            location.getWorld().spawnParticle(Particle.NOTE, location, 0, note, 0, 0, 1);
+            getLocation().getWorld().spawnParticle(Particle.NOTE, getLocation(), 0, note, 0, 0, 1);
         }
     }
 
