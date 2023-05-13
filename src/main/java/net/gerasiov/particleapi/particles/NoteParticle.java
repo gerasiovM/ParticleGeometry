@@ -1,13 +1,13 @@
 package net.gerasiov.particleapi.particles;
 
-import net.gerasiov.particleapi.events.ParticleSpawnEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 
+import net.gerasiov.particleapi.events.ParticleSpawnEvent;
+
 public class NoteParticle extends RegularParticle {
     private double note;
-
 
     /**
      * Creates a new {@link NoteParticle} object with the specified parameters.
@@ -32,7 +32,7 @@ public class NoteParticle extends RegularParticle {
     }
 
     public double getNote() {
-        return this.note;
+        return note;
     }
 
     public void setNote(int note) {
@@ -45,7 +45,7 @@ public class NoteParticle extends RegularParticle {
 
     @Override
     public NoteParticle clone() {
-        return new NoteParticle(getLocation(), this.note);
+        return new NoteParticle(getLocation(), note);
     }
 
     @Override
@@ -54,9 +54,8 @@ public class NoteParticle extends RegularParticle {
         Bukkit.getServer().getPluginManager().callEvent(particleSpawnEvent);
 
         if (!particleSpawnEvent.isCancelled()) {
-            getLocation().getWorld().spawnParticle(Particle.NOTE, getLocation(), 0, note, 0, 0, 1);
+            Location particleLoc = getLocation();
+            particleLoc.getWorld().spawnParticle(Particle.NOTE, particleLoc, 0, note, 0, 0, 1);
         }
     }
-
-
 }
