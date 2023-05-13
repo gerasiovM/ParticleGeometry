@@ -1,8 +1,5 @@
 package net.gerasiov.particleapi.particles;
 
-import java.util.Collection;
-import java.util.function.Predicate;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -10,6 +7,9 @@ import org.bukkit.entity.Entity;
 import org.bukkit.plugin.PluginManager;
 
 import net.gerasiov.particleapi.events.ParticleSpawnEvent;
+
+import java.util.Collection;
+import java.util.function.Predicate;
 
 public class RegularParticle {
     private final Particle type;
