@@ -1,6 +1,6 @@
 package net.gerasiov.particleapi.particles;
 
-import net.gerasiov.particleapi.events.ParticleSpawnEvent;
+import java.util.function.Predicate;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Location;
@@ -9,12 +9,11 @@ import org.bukkit.Particle.DustOptions;
 import org.bukkit.Particle.DustTransition;
 import org.bukkit.entity.Entity;
 
-import java.util.Collection;
-import java.util.function.Predicate;
+import net.gerasiov.particleapi.events.ParticleSpawnEvent;
 
 public class DustParticle extends RegularParticle{
     private Color color;
-    private Color secondaryColor = null;
+    private Color secondaryColor;
     private float size;
 
 
@@ -28,6 +27,7 @@ public class DustParticle extends RegularParticle{
     public DustParticle(Location location, Color color, float size) {
         super(Particle.REDSTONE, location);
         this.color = color;
+        this.secondaryColor = null;
         this.size = size;
     }
 
@@ -74,9 +74,8 @@ public class DustParticle extends RegularParticle{
     public DustParticle clone() {
         if (getType() == Particle.REDSTONE) {
             return new DustParticle(getLocation(), this.color, this.size);
-        } else {
-            return new DustParticle(getLocation(), this.color, this.secondaryColor, this.size);
         }
+        return new DustParticle(getLocation(), this.color, this.secondaryColor, this.size);
     }
 
     @Override
