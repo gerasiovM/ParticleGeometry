@@ -56,9 +56,7 @@ public class ParticleGroup {
     public void spawnWithDelays(int delay, int period) {
         ParticleGroupSpawnEvent event = new ParticleGroupSpawnEvent(this);
         Bukkit.getPluginManager().callEvent(event);
-        if (event.isCancelled()) {
-            return;
-        }
+        if (event.isCancelled()) return;
         new BukkitRunnable() {
             int index = 0;
 
@@ -89,9 +87,7 @@ public class ParticleGroup {
     public void spawnWithDelays(int delay, int period, ParticleSpawnInjector injector) {
         ParticleGroupSpawnEvent event = new ParticleGroupSpawnEvent(this);
         Bukkit.getPluginManager().callEvent(event);
-        if (event.isCancelled()) {
-            return;
-        }
+        if (event.isCancelled()) return;
         new BukkitRunnable() {
             int index = 0;
 
