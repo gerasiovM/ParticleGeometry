@@ -7,7 +7,7 @@ import net.gerasiov.particleapi.geometry.ParticleGroup;
 
 public class ParticleGroupSpawnEvent extends Event implements Cancellable {
     private final ParticleGroup particleGroup;
-    private boolean cancelled = false;
+    private boolean cancelled;
     private static final HandlerList handlers = new HandlerList();
 
     public ParticleGroupSpawnEvent(ParticleGroup particleGroup) {
@@ -33,7 +33,7 @@ public class ParticleGroupSpawnEvent extends Event implements Cancellable {
     }
 
     @Override
-    public void setCancelled(boolean cancel) {
-        cancelled = cancel;
+    public void setCancelled(boolean cancelled) {
+        this.cancelled = cancelled;
     }
 }
