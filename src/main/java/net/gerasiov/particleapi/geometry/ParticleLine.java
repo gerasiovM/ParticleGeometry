@@ -19,7 +19,7 @@ public class ParticleLine extends ParticleGroup {
      *
      * @param startLocation the starting {@link Location} of the line
      * @param endLocation the ending {@link Location} of the line
-     * @param interval the desired distance between {@link RegularParticle} points along the line
+     * @param interval the desired distance between {@link RegularParticle}s along the line
      * @param particle the {@link RegularParticle} object defining the particle effect to be displayed.
      */
     public ParticleLine(Location startLocation, Location endLocation, double interval, RegularParticle particle) {
@@ -49,12 +49,12 @@ public class ParticleLine extends ParticleGroup {
     }
 
     /**
-     * Calculates the actual distance between {@link RegularParticle} points along the line between the given start and end locations,
+     * Calculates the actual distance between {@link RegularParticle}s along the line between the given start and end locations,
      * given a desired interval.
      *
      * @param startLocation the starting {@link Location} of the line
      * @param endLocation the ending {@link Location} of the line
-     * @param interval the desired distance between {@link RegularParticle} points along the line.
+     * @param interval the desired distance between {@link RegularParticle}s along the line.
      * @return the actual distance.
      */
     public static double calculateRealInterval(Location startLocation, Location endLocation, double interval) {
