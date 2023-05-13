@@ -12,8 +12,7 @@ import org.bukkit.entity.Entity;
 import java.util.Collection;
 import java.util.function.Predicate;
 
-public class DustParticle implements ParticlePoint{
-    private Location location;
+public class DustParticle extends RegularParticle{
     private Color color;
     private Color secondaryColor = null;
     private float size;
@@ -27,7 +26,7 @@ public class DustParticle implements ParticlePoint{
      * @param size The size for the particle.
      */
     public DustParticle(Location location, Color color, float size) {
-        this.location = location;
+        super(Particle.REDSTONE, location);
         this.color = color;
         this.size = size;
     }
@@ -41,25 +40,10 @@ public class DustParticle implements ParticlePoint{
      * @param size The size for the particle.
      */
     public DustParticle(Location location, Color color, Color secondaryColor, float size) {
-        this.location = location;
+        super(Particle.DUST_COLOR_TRANSITION, location);
         this.color = color;
         this.secondaryColor = secondaryColor;
         this.size = size;
-    }
-
-
-    @Override
-    public Particle getType() {
-        if (secondaryColor == null) {
-            return Particle.REDSTONE;
-        } else {
-            return Particle.DUST_COLOR_TRANSITION;
-        }
-    }
-
-    @Override
-    public Location getLocation() {
-        return this.location;
     }
 
     public Color getColor() {
@@ -72,11 +56,6 @@ public class DustParticle implements ParticlePoint{
 
     public float getSize() {
         return this.size;
-    }
-
-    @Override
-    public void setLocation(Location location) {
-        this.location = location;
     }
 
     public void setColor(Color color) {
@@ -93,17 +72,11 @@ public class DustParticle implements ParticlePoint{
 
     @Override
     public DustParticle clone() {
-        return new DustParticle(this.location, this.color, this.secondaryColor, this.size);
-    }
-
-    @Override
-    public Collection<Entity> getNearbyEntities(double radiusX, double radiusY, double radiusZ) {
-        return this.location.getWorld().getNearbyEntities(this.location, radiusX, radiusY, radiusZ);
-    }
-
-    @Override
-    public Collection<Entity> getNearbyEntities(double radiusX, double radiusY, double radiusZ, Predicate<Entity> filter) {
-        return this.location.getWorld().getNearbyEntities(this.location, radiusX, radiusY, radiusZ, filter);
+        if (getType() == Particle.REDSTONE) {
+            return new DustParticle(getLocation(), this.color, this.size);
+        } else {
+            return new DustParticle(getLocation(), this.color, this.secondaryColor, this.size);
+        }
     }
 
     @Override
@@ -112,12 +85,12 @@ public class DustParticle implements ParticlePoint{
         Bukkit.getServer().getPluginManager().callEvent(particleSpawnEvent);
 
         if (!particleSpawnEvent.isCancelled()) {
-            if (secondaryColor == null) {
+            if (getType() == Particle.REDSTONE) {
                 DustOptions dustOptions = new DustOptions(color, size);
-                location.getWorld().spawnParticle(Particle.REDSTONE, location, 1, dustOptions);
+                getLocation().getWorld().spawnParticle(Particle.REDSTONE, getLocation(), 1, dustOptions);
             } else {
                 DustTransition dustTransition = new DustTransition(color, secondaryColor, size);
-                location.getWorld().spawnParticle(Particle.DUST_COLOR_TRANSITION, location, 1, dustTransition);
+                getLocation().getWorld().spawnParticle(Particle.DUST_COLOR_TRANSITION, getLocation(), 1, dustTransition);
             }
         }
     }

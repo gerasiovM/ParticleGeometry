@@ -1,23 +1,21 @@
 package net.gerasiov.particleapi.events;
 
-import net.gerasiov.particleapi.particles.ParticlePoint;
-import org.bukkit.Location;
-import org.bukkit.Particle;
+import net.gerasiov.particleapi.particles.RegularParticle;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 public class ParticleSpawnEvent extends Event implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
-    private final ParticlePoint particlePoint;
+    private final RegularParticle particle;
     private boolean cancelled = false;
 
-    public ParticleSpawnEvent(ParticlePoint particlePoint) {
-        this.particlePoint = particlePoint;
+    public ParticleSpawnEvent(RegularParticle particle) {
+        this.particle = particle;
     }
 
-    public ParticlePoint getParticle() {
-        return particlePoint;
+    public RegularParticle getParticle() {
+        return particle;
     }
 
     public static HandlerList getHandlerList() {

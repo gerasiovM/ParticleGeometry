@@ -12,10 +12,8 @@ import java.util.Collection;
 import java.util.function.Predicate;
 
 
-public class DirectionalParticle implements ParticlePoint{
-    private Location location;
+public class DirectionalParticle extends RegularParticle{
     private Vector direction;
-    private final Particle type;
     private double speed;
 
 
@@ -28,24 +26,12 @@ public class DirectionalParticle implements ParticlePoint{
      * @param speed The particle speed.
      */
     public DirectionalParticle(Particle type, Location location, Vector direction, double speed) {
+        super(type, location);
         if (!DirectionalParticleTypes.contains(type)) {
             throw new IllegalArgumentException("Invalid particle type provided.");
         }
-
-        this.location = location;
         this.direction = direction;
-        this.type = type;
         this.speed = speed;
-    }
-
-    @Override
-    public Particle getType() {
-        return this.type;
-    }
-
-    @Override
-    public Location getLocation() {
-        return this.location;
     }
 
     public Vector getDirection() {
@@ -56,32 +42,12 @@ public class DirectionalParticle implements ParticlePoint{
         return this.speed;
     }
 
-    public void setSpeed(double speed) {
-        this.speed = speed;
-    }
-
-    @Override
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
     public void setDirection(Vector direction) {
         this.direction = direction;
     }
 
-    @Override
-    public DirectionalParticle clone() {
-        return new DirectionalParticle(this.type, this.location, this.direction, this.speed);
-    }
-
-    @Override
-    public Collection<Entity> getNearbyEntities(double radiusX, double radiusY, double radiusZ) {
-        return this.location.getWorld().getNearbyEntities(this.location, radiusX, radiusY, radiusZ);
-    }
-
-    @Override
-    public Collection<Entity> getNearbyEntities(double radiusX, double radiusY, double radiusZ, Predicate<Entity> filter) {
-        return this.location.getWorld().getNearbyEntities(this.location, radiusX, radiusY, radiusZ, filter);
+    public void setSpeed(double speed) {
+        this.speed = speed;
     }
 
     @Override
@@ -90,7 +56,7 @@ public class DirectionalParticle implements ParticlePoint{
         Bukkit.getServer().getPluginManager().callEvent(particleSpawnEvent);
 
         if (!particleSpawnEvent.isCancelled()) {
-            location.getWorld().spawnParticle(type, location, 0, direction.getX(), direction.getY(), direction.getZ(), speed);
+            getLocation().getWorld().spawnParticle(getType(), getLocation(), 0, direction.getX(), direction.getY(), direction.getZ(), speed);
         }
     }
 }
