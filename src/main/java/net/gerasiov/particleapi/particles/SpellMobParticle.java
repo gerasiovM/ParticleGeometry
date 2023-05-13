@@ -5,26 +5,23 @@ import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
-import org.bukkit.entity.Entity;
 
-import java.util.Collection;
 import java.util.function.Predicate;
 
-public class SpellMobParticle extends RegularParticle{
+public class SpellMobParticle extends RegularParticle {
     private double red;
     private double green;
     private double blue;
     // I don't know what this value is, maybe alpha? Until then, it will be called extra. extra=1D should produce normal results.
     private double extra;
 
-
-    /**
+	/**
      * Creates a new {@link SpellMobParticle} object with the specified parameters.
      *
-     * @param type Particle type. Can be either {@link Particle#SPELL_MOB} or {@link Particle#SPELL_MOB_AMBIENT}.
+     * @param type     Particle type. Can be either {@link Particle#SPELL_MOB} or {@link Particle#SPELL_MOB_AMBIENT}.
      * @param location The location for the particle.
-     * @param color The color for the particle.
-     * @param extra The extra value for the particle. Presumably alpha, 1D should produce normal results.
+     * @param color    The color for the particle.
+     * @param extra    The extra value for the particle. Presumably alpha, 1D should produce normal results.
      */
     public SpellMobParticle(Particle type, Location location, Color color, double extra) {
         super(type, location);
@@ -40,12 +37,12 @@ public class SpellMobParticle extends RegularParticle{
     /**
      * Creates a new {@link SpellMobParticle} object with the specified parameters.
      *
-     * @param type Particle type. Can be either {@link Particle#SPELL_MOB} or {@link Particle#SPELL_MOB_AMBIENT}.
+     * @param type     Particle type. Can be either {@link Particle#SPELL_MOB} or {@link Particle#SPELL_MOB_AMBIENT}.
      * @param location The location for the particle.
-     * @param red The red component of the color.;
-     * @param green The green component of the color.;
-     * @param blue The blue component of the color.;
-     * @param extra The extra value for the particle. Presumably alpha, 1D should produce normal results.
+     * @param red      The red component of the color. The value must be a double between 0 and 1, also divisible by 1/255.
+     * @param green    The green component of the color. The value must be a double between 0 and 1, also divisible by 1/255.
+     * @param blue     The blue component of the color. The value must be a double between 0 and 1, also divisible by 1/255.
+     * @param extra    The extra value for the particle. Presumably alpha, 1D should produce normal results.
      */
     public SpellMobParticle(Particle type, Location location, int red, int green, int blue, double extra) {
         super(type, location);
