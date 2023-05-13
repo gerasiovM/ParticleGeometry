@@ -1,10 +1,11 @@
 package net.gerasiov.particleapi.geometry;
 
+import org.bukkit.Location;
+
 import net.gerasiov.particleapi.particles.RegularParticle;
 import net.gerasiov.particleapi.schemes.SpawnScheme;
 import net.gerasiov.particleapi.schemes.array.line.ArrayLineScheme;
 import net.gerasiov.particleapi.schemes.spawn.line.SpawnLineScheme;
-import org.bukkit.Location;
 
 public class ParticleLine extends ParticleGroup {
     private Location startLocation;
@@ -64,39 +65,39 @@ public class ParticleLine extends ParticleGroup {
     }
 
     public Location getStartLocation() {
-        return this.startLocation;
-    }
-
-    public Location getEndLocation() {
-        return this.endLocation;
-    }
-
-    public double getInterval() {
-        return this.interval;
-    }
-
-    public ArrayLineScheme getScheme() {
-        return this.arrayScheme;
-    }
-
-    public int getLength() {
-        return getParticles().length;
+        return startLocation;
     }
 
     public void setStartLocation(Location startLocation) {
         this.startLocation = startLocation;
         this.interval = calculateRealInterval(this.startLocation, this.endLocation, this.interval);
-        setParticles(this.arrayScheme.createArray(this.startLocation, this.endLocation, this.interval));
+        setParticles(arrayScheme.createArray(this.startLocation, this.endLocation, this.interval));
+    }
+
+    public Location getEndLocation() {
+        return endLocation;
     }
 
     public void setEndLocation(Location endLocation) {
         this.endLocation = endLocation;
         this.interval = calculateRealInterval(this.startLocation, this.endLocation, this.interval);
-        setParticles(this.arrayScheme.createArray(this.startLocation, this.endLocation, this.interval));
+        setParticles(arrayScheme.createArray(this.startLocation, this.endLocation, this.interval));
+    }
+
+    public double getInterval() {
+        return interval;
     }
 
     public void setInterval(double interval) {
         this.interval = calculateRealInterval(this.startLocation, this.endLocation, interval);
-        setParticles(this.arrayScheme.createArray(this.startLocation, this.endLocation, this.interval));
+        setParticles(arrayScheme.createArray(this.startLocation, this.endLocation, this.interval));
+    }
+
+    public ArrayLineScheme getScheme() {
+        return arrayScheme;
+    }
+
+    public int getLength() {
+        return getParticles().length;
     }
 }
