@@ -5,8 +5,8 @@ import net.gerasiov.particleapi.schemes.SpawnScheme;
 
 public class SpawnLineScheme implements SpawnScheme<RegularParticle[]> {
     @Override
-    public int[] getNextParticleIndexes(int index) {
-        return new int[] {index};
+    public RegularParticle[] getNextParticles(int index, RegularParticle[] spawnParticles) {
+        return new RegularParticle[] {spawnParticles[index]};
     }
 
     @Override

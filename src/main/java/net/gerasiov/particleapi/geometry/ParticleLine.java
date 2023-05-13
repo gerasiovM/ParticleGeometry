@@ -1,16 +1,16 @@
 package net.gerasiov.particleapi.geometry;
 
 import net.gerasiov.particleapi.particles.*;
+import net.gerasiov.particleapi.schemes.SpawnScheme;
 import net.gerasiov.particleapi.schemes.array.line.ArrayLineScheme;
+import net.gerasiov.particleapi.schemes.spawn.line.SpawnLineScheme;
 import org.bukkit.Location;
 
 public class ParticleLine extends ParticleGroup {
     private Location startLocation;
     private Location endLocation;
     private double interval;
-    private ArrayLineScheme scheme;
-
-
+    private ArrayLineScheme arrayScheme;
 
 
     /**
@@ -38,14 +38,15 @@ public class ParticleLine extends ParticleGroup {
      * @param startLocation the starting {@link Location} of the line
      * @param endLocation the ending {@link Location} of the line
      * @param interval the desired distance between {@link RegularParticle}s along the line
-     * @param scheme the {@link ArrayLineScheme} object defining the particle effects to be displayed
+     * @param arrayScheme the {@link ArrayLineScheme} object, defining the particle effects to be displayed
+     * @param spawnScheme the {@link SpawnLineScheme} object, defining the order in which the particles will be spawned
      */
-    public ParticleLine(Location startLocation, Location endLocation, double interval, ArrayLineScheme scheme) {
-        super(scheme.createArray(startLocation, endLocation, interval));
+    public ParticleLine(Location startLocation, Location endLocation, double interval, ArrayLineScheme arrayScheme, SpawnScheme spawnScheme) {
+        super(arrayScheme.createArray(startLocation, endLocation, interval), spawnScheme);
         this.startLocation = startLocation;
         this.endLocation = endLocation;
         this.interval = calculateRealInterval(startLocation, endLocation, interval);
-        this.scheme = scheme;
+        this.arrayScheme = arrayScheme;
     }
 
     /**
@@ -75,7 +76,7 @@ public class ParticleLine extends ParticleGroup {
     }
 
     public ArrayLineScheme getScheme() {
-        return this.scheme;
+        return this.arrayScheme;
     }
 
     public int getLength() {
@@ -85,17 +86,17 @@ public class ParticleLine extends ParticleGroup {
     public void setStartLocation(Location startLocation) {
         this.startLocation = startLocation;
         this.interval = calculateRealInterval(this.startLocation, this.endLocation, this.interval);
-        setParticles(this.scheme.createArray(this.startLocation, this.endLocation, this.interval));
+        setParticles(this.arrayScheme.createArray(this.startLocation, this.endLocation, this.interval));
     }
 
     public void setEndLocation(Location endLocation) {
         this.endLocation = endLocation;
         this.interval = calculateRealInterval(this.startLocation, this.endLocation, this.interval);
-        setParticles(this.scheme.createArray(this.startLocation, this.endLocation, this.interval));
+        setParticles(this.arrayScheme.createArray(this.startLocation, this.endLocation, this.interval));
     }
 
     public void setInterval(double interval) {
         this.interval = calculateRealInterval(this.startLocation, this.endLocation, interval);
-        setParticles(this.scheme.createArray(this.startLocation, this.endLocation, this.interval));
+        setParticles(this.arrayScheme.createArray(this.startLocation, this.endLocation, this.interval));
     }
 }

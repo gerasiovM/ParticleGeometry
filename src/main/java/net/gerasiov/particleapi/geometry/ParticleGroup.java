@@ -65,8 +65,8 @@ public class ParticleGroup {
                     if (event.isCancelled()) {
                         cancel();
                     }
-                    for (int particleIndex: spawnScheme.getNextParticleIndexes(index)) {
-                        particles[particleIndex].spawn();
+                    for (RegularParticle particle: spawnScheme.getNextParticles(index, particles)) {
+                        particle.spawn();
                     }
                     index++;
                     if (spawnScheme.isFinished(index, particles)) {
@@ -97,8 +97,8 @@ public class ParticleGroup {
                         cancel();
                     }
                     injector.reply(index);
-                    for (int particleIndex: spawnScheme.getNextParticleIndexes(index)) {
-                        particles[particleIndex].spawn();
+                    for (RegularParticle particle: spawnScheme.getNextParticles(index, particles)) {
+                        particle.spawn();
                     }
                     index++;
                     if (spawnScheme.isFinished(index, particles)) {
