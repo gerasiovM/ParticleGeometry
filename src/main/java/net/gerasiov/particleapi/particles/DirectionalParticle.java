@@ -4,24 +4,23 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.util.Vector;
-
-import java.util.function.Predicate;
-
 import net.gerasiov.particleapi.events.ParticleSpawnEvent;
 import net.gerasiov.particleapi.particles.types.DirectionalParticleTypes;
 
+import java.util.function.Predicate;
+
 public class DirectionalParticle extends RegularParticle {
+
     private Vector direction;
     private double speed;
-
 
     /**
      * Creates a new {@link DirectionalParticle} object with the specified parameters.
      *
-     * @param location The start location of the particle. This is where it will spawn.
-     * @param direction The direction in which the particle will travel.
-     * @param type The particle type. Should be one of the {@link DirectionalParticleTypes} values.
-     * @param speed The particle speed.
+     * @param location   The start location of the particle. This is where it will spawn.
+     * @param direction  The direction in which the particle will travel.
+     * @param type       The particle type. Should be one of the {@link DirectionalParticleTypes} values.
+     * @param speed      The particle speed.
      * @throws IllegalArgumentException If an invalid particle type is provided.
      */
     public DirectionalParticle(Particle type, Location location, Vector direction, double speed) {
@@ -49,11 +48,9 @@ public class DirectionalParticle extends RegularParticle {
         this.speed = speed;
     }
 
-	/**
-     * Spawns the particle in the world.
-     * 
-     * If the {@link ParticleSpawnEvent} is not cancelled, the particle will be spawned 
-     * with the specified direction and speed at the location. 
+    /**
+     * Spawns the particle in the world. If the {@link ParticleSpawnEvent} is not cancelled, the particle will be spawned
+     * with the specified direction and speed at the location.
      *
      * @see RegularParticle#spawn()
      */
