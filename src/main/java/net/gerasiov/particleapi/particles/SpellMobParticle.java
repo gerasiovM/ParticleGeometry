@@ -39,9 +39,9 @@ public class SpellMobParticle extends RegularParticle {
      *
      * @param type     Particle type. Can be either {@link Particle#SPELL_MOB} or {@link Particle#SPELL_MOB_AMBIENT}.
      * @param location The location for the particle.
-     * @param red      The red component of the color. The value must be a double between 0 and 1, also divisible by 1/255.
-     * @param green    The green component of the color. The value must be a double between 0 and 1, also divisible by 1/255.
-     * @param blue     The blue component of the color. The value must be a double between 0 and 1, also divisible by 1/255.
+     * @param red      The red component of the color. The value must be an integer between 0 and 255.
+     * @param green    The green component of the color. The value must be an integer between 0 and 255.
+     * @param blue     The blue component of the color. The value must be an integer between 0 and 255.
      * @param extra    The extra value for the particle. Presumably alpha, 1D should produce normal results.
      */
     public SpellMobParticle(Particle type, Location location, int red, int green, int blue, double extra) {
