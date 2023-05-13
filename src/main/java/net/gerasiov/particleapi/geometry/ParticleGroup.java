@@ -39,9 +39,7 @@ public class ParticleGroup {
     public void spawn() {
         ParticleGroupSpawnEvent event = new ParticleGroupSpawnEvent(this);
         Bukkit.getPluginManager().callEvent(event);
-        if (event.isCancelled()) {
-            return;
-        }
+        if (event.isCancelled()) return;
         for (RegularParticle particle : particles) {
             particle.spawn();
         }
