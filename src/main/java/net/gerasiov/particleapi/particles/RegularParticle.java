@@ -46,8 +46,7 @@ public class RegularParticle {
 
     public void spawn() {
         ParticleSpawnEvent event = new ParticleSpawnEvent(this);
-        PluginManager pluginManager = Bukkit.getServer().getPluginManager();
-        pluginManager.callEvent(event);
+        Bukkit.getServer().getPluginManager().callEvent(event);
 
         if (!event.isCancelled()) {
             location.getWorld().spawnParticle(type, location, 1);
