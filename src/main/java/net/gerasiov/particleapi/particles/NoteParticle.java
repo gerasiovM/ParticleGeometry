@@ -54,8 +54,7 @@ public class NoteParticle extends RegularParticle {
         Bukkit.getServer().getPluginManager().callEvent(particleSpawnEvent);
 
         if (!particleSpawnEvent.isCancelled()) {
-            Location particleLoc = getLocation();
-            particleLoc.getWorld().spawnParticle(Particle.NOTE, particleLoc, 0, note, 0, 0, 1);
+            getLocation().getWorld().spawnParticle(Particle.NOTE, getLocation(), 0, note, 0, 0, 1);
         }
     }
 }
