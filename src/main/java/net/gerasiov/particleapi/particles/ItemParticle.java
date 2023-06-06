@@ -30,10 +30,10 @@ public class ItemParticle extends RegularParticle {
 
     @Override
     public void spawn() {
-        ParticleSpawnEvent particleSpawnEvent = new ParticleSpawnEvent(this);
-        Bukkit.getPluginManager().callEvent(particleSpawnEvent);
+        ParticleSpawnEvent event = new ParticleSpawnEvent(this);
+        Bukkit.getPluginManager().callEvent(event);
 
-        if (!particleSpawnEvent.isCancelled()) {
+        if (!event.isCancelled()) {
             getLocation().getWorld().spawnParticle(getType(), getLocation(), 1, itemData);
         }
     }
