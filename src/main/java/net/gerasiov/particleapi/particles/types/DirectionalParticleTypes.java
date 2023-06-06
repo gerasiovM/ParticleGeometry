@@ -1,4 +1,5 @@
 package net.gerasiov.particleapi.particles.types;
+
 import org.bukkit.Particle;
 
 public enum DirectionalParticleTypes {

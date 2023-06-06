@@ -6,6 +6,7 @@ import org.bukkit.Location;
 import org.bukkit.util.Vector;
 
 public class ArrayLineScheme implements ArrayScheme {
+    
     private final RegularParticle particle;
 
     public ArrayLineScheme(RegularParticle particle) {
@@ -15,25 +16,23 @@ public class ArrayLineScheme implements ArrayScheme {
     /**
      * Creates an array of {@link RegularParticle}s along the line between the given start and end locations, with a given interval.
      *
-     * @param startLocation the starting Location of the line
-     * @param endLocation the ending Location of the line
+	 * @param startLocation the starting Location of the line	
+     * @param endLocation the ending Location of the line	
      * @param interval the distance between each {@link RegularParticle} on the line
+     * @return the array of RegularParticle.
      */
     public RegularParticle[] createArray(Location startLocation, Location endLocation, double interval) {
-        double distance = endLocation.toVector().subtract(startLocation.toVector()).length();
-        int numberOfParticles = (int) (Math.round(distance / interval));
+        Vector directionVector = endLocation.toVector().subtract(startLocation.toVector()).normalize().multiply(interval);
+        double distance = endLocation.distance(startLocation);
+        int numberOfParticles = (int) Math.ceil(distance / interval);
 
-        RegularParticle[] particles = new RegularParticle[numberOfParticles];
-
-        Vector directionVector = endLocation.toVector().subtract(startLocation.toVector());
-        directionVector.normalize();
-        Vector displacementVector = directionVector.clone().multiply(interval);
+        RegularParticle[] particles = new RegularParticle[numberOfParticles];        
 
         for (int i = 0; i < numberOfParticles; i++) {
-            Location newLocation = startLocation.clone().add(displacementVector.clone().multiply(i));
-            RegularParticle newParticle = particle.clone();
-            newParticle.setLocation(newLocation);
-            particles[i] = newParticle;
+            Location particleLocation = startLocation.clone().add(directionVector.clone().multiply(i));
+            RegularParticle clonedParticle = particle.clone();
+            clonedParticle.setLocation(particleLocation);
+            particles[i] = clonedParticle;
         }
 
         return particles;

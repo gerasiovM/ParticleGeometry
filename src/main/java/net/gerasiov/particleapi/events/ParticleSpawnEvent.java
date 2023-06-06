@@ -1,6 +1,7 @@
 package net.gerasiov.particleapi.events;
 
 import net.gerasiov.particleapi.particles.RegularParticle;
+
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
@@ -8,7 +9,7 @@ import org.bukkit.event.HandlerList;
 public class ParticleSpawnEvent extends Event implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     private final RegularParticle particle;
-    private boolean cancelled = false;
+    private boolean cancelled;
 
     public ParticleSpawnEvent(RegularParticle particle) {
         this.particle = particle;

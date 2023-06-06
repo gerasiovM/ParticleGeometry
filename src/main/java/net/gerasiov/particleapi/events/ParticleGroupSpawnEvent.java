@@ -1,14 +1,14 @@
 package net.gerasiov.particleapi.events;
 
-import net.gerasiov.particleapi.geometry.ParticleGroup;
 import org.bukkit.event.Cancellable;
+import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+import net.gerasiov.particleapi.geometry.ParticleGroup;
 
-public class ParticleGroupSpawnEvent extends org.bukkit.event.Event implements Cancellable {
-    private static final HandlerList handlers = new HandlerList();
-
+public class ParticleGroupSpawnEvent extends Event implements Cancellable {
     private final ParticleGroup particleGroup;
-    private boolean cancelled = false;
+    private boolean cancelled;
+    private static final HandlerList handlers = new HandlerList();
 
     public ParticleGroupSpawnEvent(ParticleGroup particleGroup) {
         this.particleGroup = particleGroup;
@@ -17,7 +17,7 @@ public class ParticleGroupSpawnEvent extends org.bukkit.event.Event implements C
     public ParticleGroup getParticleGroup() {
         return particleGroup;
     }
-
+    
     @Override
     public HandlerList getHandlers() {
         return handlers;
@@ -25,7 +25,7 @@ public class ParticleGroupSpawnEvent extends org.bukkit.event.Event implements C
 
     public static HandlerList getHandlerList() {
         return handlers;
-    }
+    }   
 
     @Override
     public boolean isCancelled() {
@@ -37,4 +37,3 @@ public class ParticleGroupSpawnEvent extends org.bukkit.event.Event implements C
         this.cancelled = cancelled;
     }
 }
-

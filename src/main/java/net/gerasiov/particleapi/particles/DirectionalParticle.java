@@ -1,29 +1,27 @@
 package net.gerasiov.particleapi.particles;
 
-import net.gerasiov.particleapi.events.ParticleSpawnEvent;
-import net.gerasiov.particleapi.particles.types.DirectionalParticleTypes;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
-import org.bukkit.entity.Entity;
 import org.bukkit.util.Vector;
+import net.gerasiov.particleapi.events.ParticleSpawnEvent;
+import net.gerasiov.particleapi.particles.types.DirectionalParticleTypes;
 
-import java.util.Collection;
 import java.util.function.Predicate;
 
+public class DirectionalParticle extends RegularParticle {
 
-public class DirectionalParticle extends RegularParticle{
     private Vector direction;
     private double speed;
-
 
     /**
      * Creates a new {@link DirectionalParticle} object with the specified parameters.
      *
-     * @param location The start location of the particle. This is where it will spawn.
-     * @param direction The direction in which the particle will travel.
-     * @param type The particle type. Should be one of the {@link DirectionalParticleTypes} values.
-     * @param speed The particle speed.
+     * @param location   The start location of the particle. This is where it will spawn.
+     * @param direction  The direction in which the particle will travel.
+     * @param type       The particle type. Should be one of the {@link DirectionalParticleTypes} values.
+     * @param speed      The particle speed.
+     * @throws IllegalArgumentException If an invalid particle type is provided.
      */
     public DirectionalParticle(Particle type, Location location, Vector direction, double speed) {
         super(type, location);
@@ -52,10 +50,10 @@ public class DirectionalParticle extends RegularParticle{
 
     @Override
     public void spawn() {
-        ParticleSpawnEvent particleSpawnEvent = new ParticleSpawnEvent(this);
-        Bukkit.getServer().getPluginManager().callEvent(particleSpawnEvent);
+        ParticleSpawnEvent event = new ParticleSpawnEvent(this);
+        Bukkit.getServer().getPluginManager().callEvent(event);
 
-        if (!particleSpawnEvent.isCancelled()) {
+        if (!event.isCancelled()) {
             getLocation().getWorld().spawnParticle(getType(), getLocation(), 0, direction.getX(), direction.getY(), direction.getZ(), speed);
         }
     }

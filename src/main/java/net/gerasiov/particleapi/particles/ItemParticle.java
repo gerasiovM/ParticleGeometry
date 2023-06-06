@@ -1,18 +1,18 @@
 package net.gerasiov.particleapi.particles;
 
-import net.gerasiov.particleapi.events.ParticleSpawnEvent;
+import java.util.Collection;
+import java.util.function.Predicate;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Collection;
-import java.util.function.Predicate;
+import net.gerasiov.particleapi.events.ParticleSpawnEvent;
 
-public class ItemParticle extends RegularParticle{
-    private ItemStack itemData;
-
+public class ItemParticle extends RegularParticle {
+    private final ItemStack itemData;
 
     public ItemParticle(Location location, ItemStack itemData) {
         super(Particle.ITEM_CRACK, location);
@@ -20,9 +20,8 @@ public class ItemParticle extends RegularParticle{
     }
 
     public ItemStack getItemData() {
-        return this.itemData;
+        return itemData;
     }
-
 
     @Override
     public ItemParticle clone() {
@@ -31,10 +30,10 @@ public class ItemParticle extends RegularParticle{
 
     @Override
     public void spawn() {
-        ParticleSpawnEvent particleSpawnEvent = new ParticleSpawnEvent(this);
-        Bukkit.getServer().getPluginManager().callEvent(particleSpawnEvent);
+        ParticleSpawnEvent event = new ParticleSpawnEvent(this);
+        Bukkit.getPluginManager().callEvent(event);
 
-        if (!particleSpawnEvent.isCancelled()) {
+        if (!event.isCancelled()) {
             getLocation().getWorld().spawnParticle(getType(), getLocation(), 1, itemData);
         }
     }
