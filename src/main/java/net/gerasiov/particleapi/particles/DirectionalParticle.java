@@ -48,18 +48,12 @@ public class DirectionalParticle extends RegularParticle {
         this.speed = speed;
     }
 
-    /**
-     * Spawns the particle in the world. If the {@link ParticleSpawnEvent} is not cancelled, the particle will be spawned
-     * with the specified direction and speed at the location.
-     *
-     * @see RegularParticle#spawn()
-     */
     @Override
     public void spawn() {
-        ParticleSpawnEvent particleSpawnEvent = new ParticleSpawnEvent(this);
-        Bukkit.getServer().getPluginManager().callEvent(particleSpawnEvent);
+        ParticleSpawnEvent event = new ParticleSpawnEvent(this);
+        Bukkit.getServer().getPluginManager().callEvent(event);
 
-        if (!particleSpawnEvent.isCancelled()) {
+        if (!event.isCancelled()) {
             getLocation().getWorld().spawnParticle(getType(), getLocation(), 0, direction.getX(), direction.getY(), direction.getZ(), speed);
         }
     }
