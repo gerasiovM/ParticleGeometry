@@ -78,10 +78,10 @@ public class DustParticle extends RegularParticle {
 
     @Override
     public void spawn() {
-        ParticleSpawnEvent particleSpawnEvent = new ParticleSpawnEvent(this);
-        Bukkit.getServer().getPluginManager().callEvent(particleSpawnEvent);
+        ParticleSpawnEvent event = new ParticleSpawnEvent(this);
+        Bukkit.getServer().getPluginManager().callEvent(event);
 
-        if (!particleSpawnEvent.isCancelled()) {
+        if (!event.isCancelled()) {
             if (getType() == Particle.REDSTONE) {
                 DustOptions dustOptions = new DustOptions(color, size);
                 getLocation().getWorld().spawnParticle(getType(), getLocation(), 1, dustOptions);
