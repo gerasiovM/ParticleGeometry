@@ -152,8 +152,6 @@ public class ParticleMatrix implements ParticleConstruct {
         ParticleConstructSpawnEvent event = new ParticleConstructSpawnEvent(this);
         Bukkit.getPluginManager().callEvent(event);
         if (event.isCancelled()) return;
-        DustParticle center = new DustParticle(this.center, Color.GREEN, 1.0f);
-        center.spawn();
         for (int i = 0; i < particles.length; i++) {
             for (int j = 0; j < particles[0].length; j++) {
                 if (particles[i][j] != null) {
@@ -176,9 +174,13 @@ public class ParticleMatrix implements ParticleConstruct {
                     cancel();
                     return;
                 }
-
+                for (RegularParticle particle : spawnScheme.getNextParticles(index, particles)) {
+                    particle.spawn();
+                }
                 index++;
-
+                if (spawnScheme.isFinished(index, particles)) {
+                    cancel();
+                }
             }
         }.runTaskTimer(ParticleAPI.instance, delay, period);
     }
