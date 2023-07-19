@@ -2,14 +2,14 @@ package net.gerasiov.particleapi.geometry;
 
 import net.gerasiov.particleapi.ParticleAPI;
 import net.gerasiov.particleapi.ParticleSpawnInjector;
-import net.gerasiov.particleapi.events.ParticleGroupSpawnEvent;
+import net.gerasiov.particleapi.events.ParticleConstructSpawnEvent;
 import net.gerasiov.particleapi.particles.RegularParticle;
 import net.gerasiov.particleapi.schemes.SpawnScheme;
 import net.gerasiov.particleapi.schemes.spawn.line.SpawnLineScheme;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 
-public class ParticleGroup {
+public class ParticleGroup implements ParticleConstruct{
 
     private RegularParticle[] particles;
     private final SpawnScheme spawnScheme;
@@ -36,8 +36,12 @@ public class ParticleGroup {
         this.particles = particles;
     }
 
+    public ParticleGroup clone() {
+        return new ParticleGroup(particles.clone());
+    }
+
     public void spawn() {
-        ParticleGroupSpawnEvent event = new ParticleGroupSpawnEvent(this);
+        ParticleConstructSpawnEvent event = new ParticleConstructSpawnEvent(this);
         Bukkit.getPluginManager().callEvent(event);
         if (event.isCancelled()) return;
         for (RegularParticle particle : particles) {
@@ -52,7 +56,7 @@ public class ParticleGroup {
      * @param period Period between every spawn in ticks.
      */
     public void spawnWithDelays(int delay, int period) {
-        ParticleGroupSpawnEvent event = new ParticleGroupSpawnEvent(this);
+        ParticleConstructSpawnEvent event = new ParticleConstructSpawnEvent(this);
         Bukkit.getPluginManager().callEvent(event);
         if (event.isCancelled()) return;
         new BukkitRunnable() {
@@ -83,7 +87,7 @@ public class ParticleGroup {
      * @param injector An object that allows the user to inject their own code
      */
     public void spawnWithDelays(int delay, int period, ParticleSpawnInjector injector) {
-        ParticleGroupSpawnEvent event = new ParticleGroupSpawnEvent(this);
+        ParticleConstructSpawnEvent event = new ParticleConstructSpawnEvent(this);
         Bukkit.getPluginManager().callEvent(event);
         if (event.isCancelled()) return;
         new BukkitRunnable() {

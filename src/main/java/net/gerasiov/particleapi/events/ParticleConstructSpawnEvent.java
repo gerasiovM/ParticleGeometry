@@ -1,21 +1,21 @@
 package net.gerasiov.particleapi.events;
 
+import net.gerasiov.particleapi.geometry.ParticleConstruct;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import net.gerasiov.particleapi.geometry.ParticleGroup;
 
-public class ParticleGroupSpawnEvent extends Event implements Cancellable {
-    private final ParticleGroup particleGroup;
+public class ParticleConstructSpawnEvent extends Event implements Cancellable {
+    private final ParticleConstruct particleConstruct;
     private boolean cancelled;
     private static final HandlerList handlers = new HandlerList();
 
-    public ParticleGroupSpawnEvent(ParticleGroup particleGroup) {
-        this.particleGroup = particleGroup;
+    public ParticleConstructSpawnEvent(ParticleConstruct particleConstruct) {
+        this.particleConstruct = particleConstruct;
     }
 
-    public ParticleGroup getParticleGroup() {
-        return particleGroup;
+    public ParticleConstruct getParticleConstruct() {
+        return particleConstruct;
     }
     
     @Override
