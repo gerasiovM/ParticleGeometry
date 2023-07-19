@@ -116,7 +116,7 @@ public class SpellMobParticle extends RegularParticle {
 
     @Override
     public SpellMobParticle clone() {
-        return new SpellMobParticle(getType(), getLocation(), this.red, this.green, this.blue, this.extra);
+        return new SpellMobParticle(getType(), getLocation().clone(), this.red, this.green, this.blue, this.extra);
     }
 
     @Override

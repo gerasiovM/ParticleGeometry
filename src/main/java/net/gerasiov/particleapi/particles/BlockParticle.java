@@ -27,7 +27,7 @@ public class BlockParticle extends RegularParticle {
 
     @Override
     public BlockParticle clone() {
-        return new BlockParticle(getType(), getLocation(), blockData);
+        return new BlockParticle(getType(), getLocation().clone(), blockData.clone());
     }
 
     @Override

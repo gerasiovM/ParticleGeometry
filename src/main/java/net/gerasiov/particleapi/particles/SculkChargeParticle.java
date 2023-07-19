@@ -29,7 +29,7 @@ public class SculkChargeParticle extends RegularParticle {
 
     @Override
     public SculkChargeParticle clone() {
-        return new SculkChargeParticle(getLocation(), angle);
+        return new SculkChargeParticle(getLocation().clone(), angle);
     }
 
     @Override

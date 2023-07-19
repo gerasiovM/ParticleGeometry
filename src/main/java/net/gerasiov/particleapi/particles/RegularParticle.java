@@ -33,7 +33,7 @@ public class RegularParticle {
     }
 
     public RegularParticle clone() {
-        return new RegularParticle(type, location);
+        return new RegularParticle(type, location.clone());
     }
 
     public Collection<Entity> getNearbyEntities(double radiusX, double radiusY, double radiusZ) {

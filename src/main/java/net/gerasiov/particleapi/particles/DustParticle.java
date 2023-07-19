@@ -71,7 +71,7 @@ public class DustParticle extends RegularParticle {
     @Override
     public DustParticle clone() {
         if (getType() == Particle.REDSTONE) {
-            return new DustParticle(getLocation(), color, size);
+            return new DustParticle(getLocation().clone(), color, size);
         }
         return new DustParticle(getLocation(), color, secondaryColor, size);
     }
