@@ -4,14 +4,14 @@ import org.bukkit.Location;
 
 import net.gerasiov.particleapi.particles.RegularParticle;
 import net.gerasiov.particleapi.schemes.SpawnScheme;
-import net.gerasiov.particleapi.schemes.array.line.ArrayLineScheme;
+import net.gerasiov.particleapi.schemes.build.line.LineBuildScheme;
 import net.gerasiov.particleapi.schemes.spawn.line.SpawnLineScheme;
 
 public class ParticleLine extends ParticleGroup {
     private Location startLocation;
     private Location endLocation;
     private double interval;
-    private ArrayLineScheme arrayScheme;
+    private LineBuildScheme arrayScheme;
 
     /**
      * Creates a {@link ParticleLine} object representing a line of {@link RegularParticle}s between the given start
@@ -24,7 +24,7 @@ public class ParticleLine extends ParticleGroup {
      * @param particle the {@link RegularParticle} object defining the particle effect to be displayed.
      */
     public ParticleLine(Location startLocation, Location endLocation, double interval, RegularParticle particle) {
-        super(new ArrayLineScheme(particle).createArray(startLocation, endLocation, calculateRealInterval(startLocation, endLocation, interval)));
+        super(new LineBuildScheme(particle).createArray(startLocation, endLocation, calculateRealInterval(startLocation, endLocation, interval)));
         this.startLocation = startLocation;
         this.endLocation = endLocation;
         this.interval = calculateRealInterval(startLocation, endLocation, interval);
@@ -33,15 +33,15 @@ public class ParticleLine extends ParticleGroup {
     /**
      * Constructs a {@link ParticleLine} object representing a line of {@link RegularParticle}s
      * between the given start and end locations, with the given interval between {@link RegularParticle}s,
-     * and using the provided {@link ArrayLineScheme} to define the particle effect to be displayed.
+     * and using the provided {@link LineBuildScheme} to define the particle effect to be displayed.
      *
      * @param startLocation the starting {@link Location} of the line
      * @param endLocation the ending {@link Location} of the line
      * @param interval the desired distance between {@link RegularParticle}s along the line
-     * @param arrayScheme the {@link ArrayLineScheme} object, defining the particle effects to be displayed
+     * @param arrayScheme the {@link LineBuildScheme} object, defining the particle effects to be displayed
      * @param spawnScheme the {@link SpawnLineScheme} object, defining the order in which the particles will be spawned
      */
-    public ParticleLine(Location startLocation, Location endLocation, double interval, ArrayLineScheme arrayScheme, SpawnScheme spawnScheme) {
+    public ParticleLine(Location startLocation, Location endLocation, double interval, LineBuildScheme arrayScheme, SpawnScheme spawnScheme) {
         super(arrayScheme.createArray(startLocation, endLocation, interval), spawnScheme);
         this.startLocation = startLocation;
         this.endLocation = endLocation;
@@ -93,7 +93,7 @@ public class ParticleLine extends ParticleGroup {
         setParticles(arrayScheme.createArray(this.startLocation, this.endLocation, this.interval));
     }
 
-    public ArrayLineScheme getScheme() {
+    public LineBuildScheme getScheme() {
         return arrayScheme;
     }
 
