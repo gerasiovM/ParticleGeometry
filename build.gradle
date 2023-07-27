@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'maven-publish'
 }
 
 group = 'net.gerasiov'
@@ -17,6 +18,24 @@ repositories {
     }
 }
 
+publishing {
+    repositories {
+    maven {
+      name = "GitHubPackages"
+      url = "https://maven.pkg.github.com/gerasiov/particleapi"
+      credentials {
+        username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+        password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+      }
+    }
+  }
+    publications {
+        gpr(MavenPublication) {
+            from(components.java)
+        }
+    }
+}
+    
 dependencies {
     implementation 'org.jetbrains:annotations:20.1.0'
     compileOnly 'org.spigotmc:spigot-api:1.19.4-R0.1-SNAPSHOT'
