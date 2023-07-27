@@ -45,7 +45,7 @@ public class NoteParticle extends RegularParticle {
 
     @Override
     public NoteParticle clone() {
-        return new NoteParticle(getLocation(), note);
+        return new NoteParticle(getLocation().clone(), note);
     }
 
     @Override

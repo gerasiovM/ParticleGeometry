@@ -14,6 +14,12 @@ import net.gerasiov.particleapi.events.ParticleSpawnEvent;
 public class ItemParticle extends RegularParticle {
     private final ItemStack itemData;
 
+    /**
+     * Creates a new {@link ItemParticle} object with the specified parameters.
+     *
+     * @param location The location for the particle.
+     * @param itemData The {@link ItemStack} to be used as item data.
+     */
     public ItemParticle(Location location, ItemStack itemData) {
         super(Particle.ITEM_CRACK, location);
         this.itemData = itemData;
@@ -25,7 +31,7 @@ public class ItemParticle extends RegularParticle {
 
     @Override
     public ItemParticle clone() {
-        return new ItemParticle(getLocation(), itemData);
+        return new ItemParticle(getLocation().clone(), itemData.clone());
     }
 
     @Override

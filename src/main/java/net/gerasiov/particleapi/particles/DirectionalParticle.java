@@ -49,6 +49,11 @@ public class DirectionalParticle extends RegularParticle {
     }
 
     @Override
+    public DirectionalParticle clone() {
+        return new DirectionalParticle(getType(), getLocation().clone(), direction.clone(), speed);
+    }
+
+    @Override
     public void spawn() {
         ParticleSpawnEvent event = new ParticleSpawnEvent(this);
         Bukkit.getServer().getPluginManager().callEvent(event);
