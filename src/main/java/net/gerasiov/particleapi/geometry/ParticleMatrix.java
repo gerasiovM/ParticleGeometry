@@ -3,68 +3,112 @@ package net.gerasiov.particleapi.geometry;
 import net.gerasiov.particleapi.ParticleAPI;
 import net.gerasiov.particleapi.ParticleSpawnInjector;
 import net.gerasiov.particleapi.events.ParticleConstructSpawnEvent;
-import net.gerasiov.particleapi.particles.DustParticle;
 import net.gerasiov.particleapi.particles.RegularParticle;
 import net.gerasiov.particleapi.schemes.SpawnScheme;
-import net.gerasiov.particleapi.schemes.build.matrix.MatrixBuildScheme;
-import net.gerasiov.particleapi.schemes.spawn.matrix.LRMatrixSpawnScheme;
 import org.bukkit.Bukkit;
-import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
+import org.jetbrains.annotations.NotNull;
 
 public class ParticleMatrix implements ParticleConstruct {
     private RegularParticle[][] particles;
     private Location[][] locations;
     private Location center;
-    private double interval;
+    private double verticalInterval;
+    private double horizontalInterval;
 
-    public ParticleMatrix(Location l1, Location l2, double interval) {
-        fillLocationMatrix(new Location(l2.getWorld(), l2.getX(), l1.getY(), l2.getZ()), l1, l2, interval);
+    /**
+     * Creates a ParticleMatrix which will be represented with an upright rectangle.
+     * The 2 locations provided should be the opposite corners of the rectangle.
+     *
+     * @param firstCorner        The first corner of the rectangle.
+     * @param oppositeCorner     The opposite to the first corner of the rectangle.
+     * @param verticalInterval   The initial interval between all particle locations. (Vertical in relation to matrix columns)
+     * @param horizontalInterval The initial horizontal interval between particles. (Horizontal in relation to matrix rows)
+     */
+    public ParticleMatrix(@NotNull Location firstCorner, @NotNull Location oppositeCorner, double verticalInterval, double horizontalInterval) {
+        if (verticalInterval <= 0 || horizontalInterval <= 0) {
+            throw new IllegalArgumentException("Intervals must be greater than 0");
+        }
+        fillLocationMatrix(new Location(oppositeCorner.getWorld(), oppositeCorner.getX(), firstCorner.getY(), oppositeCorner.getZ()), firstCorner, oppositeCorner, verticalInterval, horizontalInterval);
     }
 
-    public ParticleMatrix(Location l1, Location l2, Location l3, double interval) {
+    /**
+     * Creates a ParticleMatrix which will be represented by a rectangle.
+     * The 3 locations provided should form a right angle. Order doesn't matter.
+     *
+     * @param firstCorner        The first corner of the rectangle.
+     * @param secondCorner       The second corner of the rectangle.
+     * @param thirdCorner        The third corner of the rectangle.
+     * @param verticalInterval   The initial interval between all particle locations. (Vertical in relation to matrix columns)
+     * @param horizontalInterval The initial horizontal interval between particles. (Horizontal in relation to matrix rows)
+     */
+    public ParticleMatrix(@NotNull Location firstCorner, @NotNull Location secondCorner, @NotNull Location thirdCorner, double verticalInterval, double horizontalInterval) {
+        if (verticalInterval <= 0 || horizontalInterval <= 0) {
+            throw new IllegalArgumentException("Interval must be greater than 0");
+        }
         double distance12, distance13, distance23;
-        distance12 = l1.distance(l2);
-        distance13 = l1.distance(l3);
-        distance23 = l2.distance(l3);
+        distance12 = firstCorner.distance(secondCorner);
+        distance13 = firstCorner.distance(thirdCorner);
+        distance23 = secondCorner.distance(thirdCorner);
         if (doubleEquals(distance12 * distance12 + distance13 * distance13, distance23 * distance23)) {
-            fillLocationMatrix(l1, l2, l3, interval);
+            fillLocationMatrix(firstCorner, secondCorner, thirdCorner, verticalInterval, horizontalInterval);
         } else if (doubleEquals(distance12 * distance12 + distance23 * distance23, distance13 * distance13)) {
-            fillLocationMatrix(l2, l1, l3, interval);
+            fillLocationMatrix(secondCorner, firstCorner, thirdCorner, verticalInterval, horizontalInterval);
         } else if (doubleEquals(distance13 * distance13 + distance23 * distance23, distance12 * distance12)){
-            fillLocationMatrix(l3, l1, l2, interval);
+            fillLocationMatrix(thirdCorner, firstCorner, secondCorner, verticalInterval, horizontalInterval);
         } else {
             throw new IllegalArgumentException("Locations don't form a rectangle");
         }
     }
 
+    private ParticleMatrix(RegularParticle[][] particles, Location[][] locations, Location center, double verticalInterval, double horizontalInterval) {
+        this.particles = particles;
+        this.locations = locations;
+        this.center = center;
+        this.verticalInterval = verticalInterval;
+        this.horizontalInterval = horizontalInterval;
+    }
+
+    /**
+     * This function is used to compare 2 doubles for equality.
+     */
     private boolean doubleEquals(double a, double b) {
         double epsilon = 1E-6;
         return Math.abs(a - b) < epsilon;
     }
 
+    /**
+     * Calculates the real interval based on 2 locations and the initial interval.
+     *
+     * @param startLocation The first location.
+     * @param endLocation   The second location.
+     * @param interval      The initial interval.
+     * @return              The correct interval
+     */
     public static double calculateRealInterval(Location startLocation, Location endLocation, double interval) {
         double distance = endLocation.toVector().subtract(startLocation.toVector()).length();
         double numberOfParticles = Math.round(distance / interval);
         return distance / numberOfParticles;
     }
 
-    private void fillLocationMatrix(Location l1, Location l2, Location l3, double interval) {
+    private void fillLocationMatrix(Location l1, Location l2, Location l3, double verticalInterval, double horizontalInterval) {
         center = l1.clone();
         // Vertical
-        interval = calculateRealInterval(l1, l2, interval);
-        Vector verticalDirectionVector = l2.clone().toVector().subtract(l1.toVector()).normalize().multiply(interval);
+        verticalInterval = calculateRealInterval(l1, l2, verticalInterval);
+        this.verticalInterval = verticalInterval;
+        Vector verticalDirectionVector = l2.clone().toVector().subtract(l1.toVector()).normalize().multiply(verticalInterval);
         double distance = l2.distance(l1);
-        int verticalNumberOfParticles = (int) Math.ceil(distance / interval);
+        int verticalNumberOfParticles = (int) Math.ceil(distance / verticalInterval);
         center.add(verticalDirectionVector.clone().multiply(((double) verticalNumberOfParticles) / 2));
 
         // Horizontal
-        interval = calculateRealInterval(l1, l3, interval);
-        Vector horizontalDirectionVector = l3.clone().toVector().subtract(l1.toVector()).normalize().multiply(interval);
+        horizontalInterval = calculateRealInterval(l1, l3, horizontalInterval);
+        this.horizontalInterval = horizontalInterval;
+        Vector horizontalDirectionVector = l3.clone().toVector().subtract(l1.toVector()).normalize().multiply(horizontalInterval);
         distance = l3.distance(l1);
-        int horizontalNumberOfParticles = (int) Math.ceil(distance / interval);
+        int horizontalNumberOfParticles = (int) Math.ceil(distance / horizontalInterval);
         center.add(horizontalDirectionVector.clone().multiply(((double) horizontalNumberOfParticles) / 2));
 
         locations = new Location[horizontalNumberOfParticles][verticalNumberOfParticles];
@@ -96,42 +140,12 @@ public class ParticleMatrix implements ParticleConstruct {
     }
 
     public void rotate(double xRotation, double yRotation, double zRotation) {
-        double[][] xRotationMatrix = {
-                {1, 0, 0},
-                {0, Math.cos(xRotation), -Math.sin(xRotation)},
-                {0, Math.sin(xRotation), Math.cos(xRotation)}};
-        double[][] yRotationMatrix = {
-                {Math.cos(yRotation), 0, Math.sin(yRotation)},
-                {0, 1, 0},
-                {-Math.sin(yRotation), 0, Math.cos(yRotation)}};
-        double[][] zRotationMatrix = {
-                {Math.cos(zRotation), -Math.sin(zRotation), 0},
-                {Math.sin(zRotation), Math.cos(zRotation), 0},
-                {0, 0, 1}};
         for (int i = 0; i < locations.length; i++) {
             for (int j = 0; j < locations[0].length; j++) {
-
-                Location location = locations[i][j].clone().subtract(center.clone());
-                locations[i][j] = new Location(
-                        location.getWorld(),
-                        location.getX() * xRotationMatrix[0][0] + location.getY() * xRotationMatrix[0][1] + location.getZ() * xRotationMatrix[0][2],
-                        location.getX() * xRotationMatrix[1][0] + location.getY() * xRotationMatrix[1][1] + location.getZ() * xRotationMatrix[1][2],
-                        location.getX() * xRotationMatrix[2][0] + location.getY() * xRotationMatrix[2][1] + location.getZ() * xRotationMatrix[2][2]);
-                location = locations[i][j];
-                locations[i][j] = new Location(
-                        location.getWorld(),
-                        location.getX()* yRotationMatrix[0][0] + location.getY() * yRotationMatrix[0][1] + location.getZ() * yRotationMatrix[0][2],
-                        location.getX() * yRotationMatrix[1][0] + location.getY() * yRotationMatrix[1][1] + location.getZ() * yRotationMatrix[1][2],
-                        location.getX() * yRotationMatrix[2][0] + location.getY() * yRotationMatrix[2][1] + location.getZ() * yRotationMatrix[2][2]);
-                location = locations[i][j];
-                locations[i][j] = center.clone().add(new Location(
-                        location.getWorld(),
-                        location.getX() * zRotationMatrix[0][0] + location.getY() * zRotationMatrix[0][1] + location.getZ() * zRotationMatrix[0][2],
-                        location.getX() * zRotationMatrix[1][0] + location.getY() * zRotationMatrix[1][1] + location.getZ() * zRotationMatrix[1][2],
-                        location.getX() * zRotationMatrix[2][0] + location.getY() * zRotationMatrix[2][1] + location.getZ() * zRotationMatrix[2][2]));
-                updateParticleLocations();
+                locations[i][j] = center.clone().add(locations[i][j].clone().subtract(center.clone()).toVector().rotateAroundX(xRotation).rotateAroundY(yRotation).rotateAroundZ(zRotation));
             }
         }
+        updateParticleLocations();
     }
 
     private void updateParticleLocations() {
@@ -144,7 +158,7 @@ public class ParticleMatrix implements ParticleConstruct {
 
     @Override
     public ParticleMatrix clone() {
-        return this;
+        return new ParticleMatrix(particles.clone(), locations.clone(), center.clone(), verticalInterval, horizontalInterval);
     }
 
     @Override
