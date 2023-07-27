@@ -12,16 +12,9 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class ParticleGroup implements ParticleConstruct{
 
     private RegularParticle[] particles;
-    private final SpawnScheme spawnScheme;
 
     public ParticleGroup(RegularParticle[] particles) {
         this.particles = particles;
-        this.spawnScheme = new SpawnLineScheme();
-    }
-
-    public ParticleGroup(RegularParticle[] particles, SpawnScheme spawnScheme) {
-        this.particles = particles;
-        this.spawnScheme = spawnScheme;
     }
 
     public RegularParticle[] getParticles() {
@@ -35,6 +28,8 @@ public class ParticleGroup implements ParticleConstruct{
     public void setParticles(RegularParticle[] particles) {
         this.particles = particles;
     }
+
+    public void setParticle(RegularParticle particle, int index) {particles[index] = particle;}
 
     public ParticleGroup clone() {
         return new ParticleGroup(particles.clone());
@@ -54,8 +49,9 @@ public class ParticleGroup implements ParticleConstruct{
      *
      * @param delay  Delay before the first spawn in ticks.
      * @param period Period between every spawn in ticks.
+     * @param spawnScheme The spawn scheme for the group.
      */
-    public void spawnWithDelays(int delay, int period) {
+    public void spawnWithDelays(int delay, int period, SpawnScheme<RegularParticle[]> spawnScheme) {
         ParticleConstructSpawnEvent event = new ParticleConstructSpawnEvent(this);
         Bukkit.getPluginManager().callEvent(event);
         if (event.isCancelled()) return;
@@ -84,9 +80,10 @@ public class ParticleGroup implements ParticleConstruct{
      *
      * @param delay    Delay before the first spawn in ticks.
      * @param period   Period between every spawn in ticks.
+     * @param spawnScheme The spawn scheme for the group.
      * @param injector An object that allows the user to inject their own code
      */
-    public void spawnWithDelays(int delay, int period, ParticleSpawnInjector injector) {
+    public void spawnWithDelays(int delay, int period, SpawnScheme<RegularParticle[]> spawnScheme, ParticleSpawnInjector injector) {
         ParticleConstructSpawnEvent event = new ParticleConstructSpawnEvent(this);
         Bukkit.getPluginManager().callEvent(event);
         if (event.isCancelled()) return;
