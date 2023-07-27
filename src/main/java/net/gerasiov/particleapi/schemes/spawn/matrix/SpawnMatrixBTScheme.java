@@ -3,7 +3,7 @@ package net.gerasiov.particleapi.schemes.spawn.matrix;
 import net.gerasiov.particleapi.particles.RegularParticle;
 import net.gerasiov.particleapi.schemes.SpawnScheme;
 
-public class BTMatrixSpawnScheme implements SpawnScheme<RegularParticle[][]> {
+public class SpawnMatrixBTScheme implements SpawnScheme<RegularParticle[][]> {
     @Override
     public RegularParticle[] getNextParticles(int index, RegularParticle[][] spawnParticles) {
         RegularParticle[] particles = new RegularParticle[spawnParticles[0].length];
