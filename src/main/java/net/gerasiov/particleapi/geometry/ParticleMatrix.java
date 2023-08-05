@@ -133,16 +133,47 @@ public class ParticleMatrix implements ParticleConstruct {
         return particles[row][column];
     }
 
+    public Location[][] getLocations() {
+        return locations;
+    }
+
+    public Location getLocation(int row, int column) {
+        return locations[row][column];
+    }
+
     public void setParticle(RegularParticle particle, int row, int column) {
         RegularParticle newParticle = particle.clone();
         newParticle.setLocation(locations[row][column]);
         particles[row][column] = newParticle;
     }
 
+    public void setParticles(RegularParticle[][] particles) {
+        if (particles.length != locations.length || particles[0].length != locations[0].length) {
+            throw new IllegalArgumentException("RegularParticle[][] lengths must be equal to Location[][] lengths");
+        }
+
+        for (int i = 0; i < locations.length; i++) {
+            for (int j = 0; j < locations[0].length; j++) {
+                RegularParticle clonedParticle = particles[i][j].clone();
+                clonedParticle.setLocation(locations[i][j]);
+                this.particles[i][j] = clonedParticle;
+            }
+        }
+    }
+
     public void rotate(double xRotation, double yRotation, double zRotation) {
         for (int i = 0; i < locations.length; i++) {
             for (int j = 0; j < locations[0].length; j++) {
                 locations[i][j] = center.clone().add(locations[i][j].clone().subtract(center.clone()).toVector().rotateAroundX(xRotation).rotateAroundY(yRotation).rotateAroundZ(zRotation));
+            }
+        }
+        updateParticleLocations();
+    }
+
+    public void rotateAroundLocation(Location rotationCenter, double xRotation, double yRotation, double zRotation) {
+        for (int i = 0; i < locations.length; i++) {
+            for (int j = 0; j < locations[0].length; j++) {
+                locations[i][j] = rotationCenter.clone().add(locations[i][j].clone().subtract(rotationCenter.clone()).toVector().rotateAroundX(xRotation).rotateAroundY(yRotation).rotateAroundZ(zRotation));
             }
         }
         updateParticleLocations();
