@@ -18,7 +18,7 @@ public class ParticleLine extends ParticleArray {
      */
     public ParticleLine(@NotNull Location startLocation, @NotNull Location endLocation, double interval, RegularParticle particle) {
         super(startLocation, endLocation, interval);
-        setParticles(new BuildLineScheme(particle).buildLine(getLocations()));
+        setParticles(new BuildLineScheme(particle).buildLine(getLocations().length));
     }
 
     /**
@@ -33,7 +33,7 @@ public class ParticleLine extends ParticleArray {
      */
     public ParticleLine(@NotNull Location startLocation, @NotNull Location endLocation, double interval, BuildLineScheme buildScheme) {
         super(startLocation, endLocation, interval);
-        setParticles(buildScheme.buildLine(getLocations()));
+        setParticles(buildScheme.buildLine(getLocations().length));
     }
 
 
