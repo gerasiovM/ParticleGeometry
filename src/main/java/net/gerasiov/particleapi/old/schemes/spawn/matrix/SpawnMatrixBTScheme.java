@@ -1,7 +1,7 @@
-package net.gerasiov.particleapi.schemes.spawn.matrix;
+package net.gerasiov.particleapi.old.schemes.spawn.matrix;
 
 import net.gerasiov.particleapi.particles.RegularParticle;
-import net.gerasiov.particleapi.schemes.SpawnScheme;
+import net.gerasiov.particleapi.old.schemes.SpawnScheme;
 
 public class SpawnMatrixBTScheme implements SpawnScheme<RegularParticle[][]> {
     @Override

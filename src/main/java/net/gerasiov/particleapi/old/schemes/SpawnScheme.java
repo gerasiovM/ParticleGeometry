@@ -1,4 +1,4 @@
-package net.gerasiov.particleapi.schemes;
+package net.gerasiov.particleapi.old.schemes;
 
 
 import net.gerasiov.particleapi.particles.RegularParticle;

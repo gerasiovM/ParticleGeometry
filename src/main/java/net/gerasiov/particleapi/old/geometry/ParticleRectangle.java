@@ -1,6 +1,6 @@
-package net.gerasiov.particleapi.geometry;
+package net.gerasiov.particleapi.old.geometry;
 
-import net.gerasiov.particleapi.schemes.build.rectangle.BuildRectangleScheme;
+import net.gerasiov.particleapi.old.schemes.build.rectangle.BuildRectangleScheme;
 import org.bukkit.Location;
 import org.jetbrains.annotations.NotNull;
 

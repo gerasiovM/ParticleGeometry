@@ -1,7 +1,7 @@
-package net.gerasiov.particleapi.schemes.spawn.line;
+package net.gerasiov.particleapi.old.schemes.spawn.line;
 
 import net.gerasiov.particleapi.particles.RegularParticle;
-import net.gerasiov.particleapi.schemes.SpawnScheme;
+import net.gerasiov.particleapi.old.schemes.SpawnScheme;
 
 public class SpawnLineScheme implements SpawnScheme<RegularParticle[]> {
     @Override

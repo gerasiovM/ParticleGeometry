@@ -1,9 +1,7 @@
-package net.gerasiov.particleapi.schemes.build.line;
+package net.gerasiov.particleapi.old.schemes.build.line;
 
 import net.gerasiov.particleapi.particles.RegularParticle;
-import net.gerasiov.particleapi.schemes.build.BuildScheme;
-import org.bukkit.Location;
-import org.jetbrains.annotations.NotNull;
+import net.gerasiov.particleapi.old.schemes.build.BuildScheme;
 
 public class BuildLineScheme implements BuildScheme {
     

@@ -1,10 +1,11 @@
-package net.gerasiov.particleapi.geometry;
+package net.gerasiov.particleapi.old.geometry;
 
 import net.gerasiov.particleapi.ParticleAPI;
 import net.gerasiov.particleapi.ParticleSpawnInjector;
 import net.gerasiov.particleapi.events.ParticleConstructSpawnEvent;
+import net.gerasiov.particleapi.geometry.ParticleConstruct;
 import net.gerasiov.particleapi.particles.RegularParticle;
-import net.gerasiov.particleapi.schemes.SpawnScheme;
+import net.gerasiov.particleapi.old.schemes.SpawnScheme;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.scheduler.BukkitRunnable;

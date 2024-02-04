@@ -1,7 +1,7 @@
-package net.gerasiov.particleapi.schemes.build.rectangle;
+package net.gerasiov.particleapi.old.schemes.build.rectangle;
 
 import net.gerasiov.particleapi.particles.RegularParticle;
-import net.gerasiov.particleapi.schemes.build.BuildScheme;
+import net.gerasiov.particleapi.old.schemes.build.BuildScheme;
 
 public class BuildRectangleScheme implements BuildScheme {
     private final RegularParticle particle;
