@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.function.Predicate;
 
+import static net.gerasiov.particleapi.Util.calculateRealInterval;
+
 public class ParticleLine implements ParticleConstruct {
     final private Location startLocation;
     final private Location endLocation;
@@ -41,20 +43,6 @@ public class ParticleLine implements ParticleConstruct {
         }
         this.interval = calculateRealInterval(startLocation, endLocation, interval);
         fillLocationArray();
-    }
-
-    /**
-     * Calculates the real interval based on 2 locations and the approximate interval.
-     *
-     * @param startLocation The first location.
-     * @param endLocation   The second location.
-     * @param interval      The initial interval.
-     * @return The correct interval
-     */
-    public static double calculateRealInterval(@NotNull Location startLocation, @NotNull Location endLocation, double interval) {
-        double distance = endLocation.toVector().subtract(startLocation.toVector()).length();
-        double numberOfParticles = Math.round(distance / interval);
-        return distance / numberOfParticles;
     }
 
     /**
