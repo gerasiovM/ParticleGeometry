@@ -28,8 +28,9 @@ public class RegularParticle {
         return location;
     }
 
-    public void setLocation(Location location) {
+    public RegularParticle setLocation(Location location) {
         this.location = location;
+        return this;
     }
 
     public RegularParticle clone() {
