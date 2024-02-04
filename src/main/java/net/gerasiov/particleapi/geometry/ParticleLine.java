@@ -14,9 +14,9 @@ import java.util.Collection;
 import java.util.function.Predicate;
 
 public class ParticleLine implements ParticleConstruct {
-    private Location startLocation;
-    private Location endLocation;
-    private double interval;
+    final private Location startLocation;
+    final private Location endLocation;
+    final private double interval;
 
     private RegularParticle[] particles;
 
