@@ -1,13 +1,11 @@
-package net.gerasiov.particleapi.particles;
+package com.gerasiov.particlegeometry.particles;
 
+import com.gerasiov.particlegeometry.events.ParticleSpawnEvent;
+import com.gerasiov.particlegeometry.particles.types.DirectionalParticleTypes;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.util.Vector;
-import net.gerasiov.particleapi.events.ParticleSpawnEvent;
-import net.gerasiov.particleapi.particles.types.DirectionalParticleTypes;
-
-import java.util.function.Predicate;
 
 public class DirectionalParticle extends RegularParticle {
 

@@ -1,12 +1,11 @@
-package net.gerasiov.particleapi.particles;
+package com.gerasiov.particlegeometry.particles;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.Entity;
-import org.bukkit.plugin.PluginManager;
 
-import net.gerasiov.particleapi.events.ParticleSpawnEvent;
+import com.gerasiov.particlegeometry.events.ParticleSpawnEvent;
 
 import java.util.Collection;
 import java.util.function.Predicate;

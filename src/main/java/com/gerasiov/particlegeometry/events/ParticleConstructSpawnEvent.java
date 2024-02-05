@@ -1,6 +1,6 @@
-package net.gerasiov.particleapi.events;
+package com.gerasiov.particlegeometry.events;
 
-import net.gerasiov.particleapi.geometry.ParticleConstruct;
+import com.gerasiov.particlegeometry.geometry.ParticleConstruct;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;

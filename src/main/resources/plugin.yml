@@ -1,6 +1,6 @@
-name: ParticleAPI
+name: ParticleGeometry
 version: '${version}'
-main: net.gerasiov.particleapi.ParticleAPI
+main: net.gerasiov.particlegeometry.ParticleGeometry
 api-version: 1.19
 authors: [ gerasiov ]
 description: gerasiov's API for easier development of effects that use particles.

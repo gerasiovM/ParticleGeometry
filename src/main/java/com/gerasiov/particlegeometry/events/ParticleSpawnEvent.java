@@ -1,6 +1,6 @@
-package net.gerasiov.particleapi.events;
+package com.gerasiov.particlegeometry.events;
 
-import net.gerasiov.particleapi.particles.RegularParticle;
+import com.gerasiov.particlegeometry.particles.RegularParticle;
 
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;

@@ -1,4 +1,4 @@
-package net.gerasiov.particleapi.particles.types;
+package com.gerasiov.particlegeometry.particles.types;
 
 import org.bukkit.Particle;
 

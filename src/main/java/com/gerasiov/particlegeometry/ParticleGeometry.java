@@ -1,13 +1,12 @@
-package net.gerasiov.particleapi;
+package com.gerasiov.particlegeometry;
 
 import org.bukkit.Bukkit;
-import org.bukkit.World;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
 
-public final class ParticleAPI extends JavaPlugin {
+public final class ParticleGeometry extends JavaPlugin {
     public static Plugin instance;
     public Logger PluginLogger = Bukkit.getLogger();
 

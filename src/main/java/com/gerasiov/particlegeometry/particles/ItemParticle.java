@@ -1,15 +1,10 @@
-package net.gerasiov.particleapi.particles;
+package com.gerasiov.particlegeometry.particles;
 
-import java.util.Collection;
-import java.util.function.Predicate;
-
+import com.gerasiov.particlegeometry.events.ParticleSpawnEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
-import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
-
-import net.gerasiov.particleapi.events.ParticleSpawnEvent;
 
 public class ItemParticle extends RegularParticle {
     private final ItemStack itemData;

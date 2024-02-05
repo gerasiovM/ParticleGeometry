@@ -1,15 +1,12 @@
-package net.gerasiov.particleapi.particles;
+package com.gerasiov.particlegeometry.particles;
 
-import java.util.function.Predicate;
-
+import com.gerasiov.particlegeometry.events.ParticleSpawnEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
 import org.bukkit.Particle.DustTransition;
-
-import net.gerasiov.particleapi.events.ParticleSpawnEvent;
 
 public class DustParticle extends RegularParticle {
     private Color color;

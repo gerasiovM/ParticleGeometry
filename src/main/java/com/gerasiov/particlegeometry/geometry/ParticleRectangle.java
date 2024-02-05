@@ -1,11 +1,10 @@
-package net.gerasiov.particleapi.geometry;
+package com.gerasiov.particlegeometry.geometry;
 
-import net.gerasiov.particleapi.particles.RegularParticle;
 import org.bukkit.Location;
 import org.bukkit.util.Vector;
 
-import static net.gerasiov.particleapi.Util.doubleEquals;
-import static net.gerasiov.particleapi.Util.calculateRealInterval;
+import static com.gerasiov.particlegeometry.Util.doubleEquals;
+import static com.gerasiov.particlegeometry.Util.calculateRealInterval;
 
 public class ParticleRectangle implements ParticleConstruct {
     private ParticleLine[] particleLines;

@@ -1,10 +1,10 @@
-package net.gerasiov.particleapi.particles;
+package com.gerasiov.particlegeometry.particles;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 
-import net.gerasiov.particleapi.events.ParticleSpawnEvent;
+import com.gerasiov.particlegeometry.events.ParticleSpawnEvent;
 
 public class NoteParticle extends RegularParticle {
     private double note;

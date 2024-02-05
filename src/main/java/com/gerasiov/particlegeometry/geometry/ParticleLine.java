@@ -1,19 +1,18 @@
-package net.gerasiov.particleapi.geometry;
+package com.gerasiov.particlegeometry.geometry;
 
-import net.gerasiov.particleapi.events.ParticleConstructSpawnEvent;
-import net.gerasiov.particleapi.particles.RegularParticle;
+import com.gerasiov.particlegeometry.events.ParticleConstructSpawnEvent;
+import com.gerasiov.particlegeometry.particles.RegularParticle;
 import org.bukkit.Axis;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.util.Vector;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.function.Predicate;
 
-import static net.gerasiov.particleapi.Util.calculateRealInterval;
+import static com.gerasiov.particlegeometry.Util.calculateRealInterval;
 
 public class ParticleLine implements ParticleConstruct {
     final private Location startLocation;

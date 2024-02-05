@@ -1,8 +1,7 @@
-package net.gerasiov.particleapi.particles;
+package com.gerasiov.particlegeometry.particles;
 
-import net.gerasiov.particleapi.events.ParticleSpawnEvent;
+import com.gerasiov.particlegeometry.events.ParticleSpawnEvent;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Vibration;
 

@@ -3,7 +3,7 @@ plugins {
     id 'maven-publish'
 }
 
-group = 'net.gerasiov'
+group = 'com.gerasiov'
 version = '0.3.2'
 
 repositories {
@@ -20,18 +20,11 @@ repositories {
 
 publishing {
     repositories {
-    maven {
-      name = "GitHubPackages"
-      url = "https://maven.pkg.github.com/gerasiovM/ParticleAPI"
-      credentials {
-        username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
-        password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
-      }
     }
-  }
     publications {
         gpr(MavenPublication) {
-
+            groupId = 'com.gerasiov'
+            artifactId = 'particlegeometry'
         }
     }
 }
