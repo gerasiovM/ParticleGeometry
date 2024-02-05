@@ -48,17 +48,17 @@ public class ParticleLine implements ParticleConstruct {
     /**
      * Creates a {@link ParticleLine} object, so that the ends of the line are startLocation and endLocation,
      * and the total amount of particles (including the ends) is numOfPoints
-     * @param startLocation The first {@link Location} in the {@link #locations} array.
-     * @param endLocation   The last {@link Location} in the {@link #locations} array.
-     * @param numOfPoints   The amount of {@link RegularParticle} in the line.
+     * @param startLocation    The first {@link Location} in the {@link #locations} array.
+     * @param endLocation      The last {@link Location} in the {@link #locations} array.
+     * @param numOfParticles   The amount of {@link RegularParticle} in the line.
      */
-    public ParticleLine(Location startLocation, Location endLocation, int numOfPoints) {
+    public ParticleLine(Location startLocation, Location endLocation, int numOfParticles) {
         this.startLocation = startLocation;
         this.endLocation = endLocation;
-        if (numOfPoints < 2) {
+        if (numOfParticles < 2) {
             throw new IllegalArgumentException("Number of points must be at least 2");
         }
-        this.interval = calculateRealInterval(startLocation, endLocation, startLocation.distance(endLocation) / numOfPoints);
+        this.interval = calculateRealInterval(startLocation, endLocation, startLocation.distance(endLocation) / numOfParticles);
         fillLocationArray();
     }
 
