@@ -18,12 +18,10 @@ public class ParticleLine implements ParticleConstruct {
     final private Location startLocation;
     final private Location endLocation;
     final private double interval;
-
     private RegularParticle[] particles;
-
     private Location[] locations;
-
     private Location center;
+    private int length;
 
     /**
      * ParticleLine constructor.
@@ -71,6 +69,7 @@ public class ParticleLine implements ParticleConstruct {
         Vector directionVector = endLocation.toVector().subtract(startLocation.toVector()).normalize().multiply(interval);
         double distance = endLocation.distance(startLocation);
         int numberOfParticles = (int) Math.ceil(distance / interval);
+        length = numberOfParticles;
         updateCenterLocation();
 
         locations = new Location[numberOfParticles];
@@ -123,8 +122,18 @@ public class ParticleLine implements ParticleConstruct {
         return center.clone();
     }
 
+    /**
+     * @return the interval between every particle in line.
+     */
     public double getInterval() {
         return interval;
+    }
+
+    /**
+     * @return the amount of all particles in line.
+     */
+    public int getLength() {
+        return length;
     }
 
     /**
