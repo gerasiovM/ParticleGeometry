@@ -82,7 +82,7 @@ public class ParticleLine implements ParticleConstruct {
      * @return a copy of the {@link Location} object at the specified index.
      *
      * @throws IllegalArgumentException if the index is negative or greater than or equal to the length
-     *                                  of the {@link #particles} array.
+     *                                  of the {@link #locations} array.
      */
     public Location getLocation(int index) {
         if (index < 0 || index >= locations.length) {
