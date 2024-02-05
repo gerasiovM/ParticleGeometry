@@ -2,6 +2,7 @@ package com.gerasiov.particlegeometry.geometry;
 
 import com.gerasiov.particlegeometry.events.ParticleConstructSpawnEvent;
 import com.gerasiov.particlegeometry.particles.RegularParticle;
+import com.gerasiov.particlegeometry.Util;
 import org.bukkit.Axis;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -29,7 +30,8 @@ public class ParticleLine implements ParticleConstruct {
      * @param startLocation  The first {@link Location} in the {@link #locations} array.
      * @param endLocation    The last {@link Location} in the {@link #locations} array.
      * @param interval       The approximate interval between 2 {@link RegularParticle}s.
-     *                       The real interval will be calculated to fit the start and end locations.
+     *                       The real interval is calculated using {@link Util#calculateRealInterval}
+     *                       to fit the start and end locations.
      *
      * @throws IllegalArgumentException if the interval is negative.
      */
