@@ -6,7 +6,7 @@ public class Util {
     /**
      * This function is used to compare 2 doubles for equality.
      */
-    private boolean doubleEquals(double a, double b) {
+    public static boolean doubleEquals(double a, double b) {
         double epsilon = 1E-6;
         return Math.abs(a - b) < epsilon;
     }
