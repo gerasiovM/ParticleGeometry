@@ -24,9 +24,10 @@ public class ParticleLine implements ParticleConstruct {
     private int length;
 
     /**
-     * ParticleLine constructor.
-     * @param startLocation  The first {@link Location} in the {@link #locations} array
-     * @param endLocation    The last {@link Location} in the {@link #locations} array
+     * Creates a {@link ParticleLine} object, so that the ends of the line are startLocation and endLocation,
+     * and the interval between particles is as close as possible to the specified.
+     * @param startLocation  The first {@link Location} in the {@link #locations} array.
+     * @param endLocation    The last {@link Location} in the {@link #locations} array.
      * @param interval       The approximate interval between 2 {@link RegularParticle}s.
      *                       The real interval will be calculated to fit the start and end locations.
      *
@@ -42,6 +43,13 @@ public class ParticleLine implements ParticleConstruct {
         fillLocationArray();
     }
 
+    /**
+     * Creates a {@link ParticleLine} object, so that the ends of the line are startLocation and endLocation,
+     * and the total amount of particles (including the ends) is numOfPoints
+     * @param startLocation The first {@link Location} in the {@link #locations} array.
+     * @param endLocation   The last {@link Location} in the {@link #locations} array.
+     * @param numOfPoints   The amount of {@link RegularParticle} in the line.
+     */
     public ParticleLine(Location startLocation, Location endLocation, int numOfPoints) {
         this.startLocation = startLocation;
         this.endLocation = endLocation;
@@ -140,7 +148,7 @@ public class ParticleLine implements ParticleConstruct {
      * Clones and puts the particles into the {@link #particles} array after updating their locations;
      * @param particles The particles to be put into the array.
      * @throws IllegalArgumentException if the index is negative or greater than or equal to the length
-     *      *                           of the {@link #particles} array.
+     *                                  of the {@link #particles} array.
      */
     public void updateParticles(RegularParticle[] particles) {
         if (particles.length != this.particles.length) {
