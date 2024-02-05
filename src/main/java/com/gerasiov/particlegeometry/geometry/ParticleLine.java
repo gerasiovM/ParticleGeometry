@@ -135,7 +135,7 @@ public class ParticleLine implements ParticleConstruct {
      */
     public void updateParticles(RegularParticle[] particles) {
         if (particles.length != this.particles.length) {
-            throw new IllegalArgumentException("Input particles array length must be equal to instances particle array length");
+            throw new IllegalArgumentException("Input particles array length must be equal to instance's particle array length");
         }
         for (int i = 0; i < particles.length; i++) {
             this.particles[i] = particles[i].clone().setLocation(locations[i]);
@@ -160,7 +160,7 @@ public class ParticleLine implements ParticleConstruct {
      */
     public void updateParticle(RegularParticle particle, int index) {
         if (index < 0 || index >= particles.length) {
-            throw new IllegalArgumentException("Index must be greater than 0 and less than instance's particle array's length");
+            throw new IllegalArgumentException("Index must be greater than 0 and less than instance's particle array length");
         }
         this.particles[index] = particle.clone().setLocation(locations[index]);
     }
