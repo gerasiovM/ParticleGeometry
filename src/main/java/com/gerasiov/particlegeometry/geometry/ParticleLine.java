@@ -54,6 +54,15 @@ public class ParticleLine implements ParticleConstruct {
         fillLocationArray();
     }
 
+    private ParticleLine(Location startLocation, Location endLocation, double interval, RegularParticle[] particles, Location[] locations, Location center) {
+        this.startLocation = startLocation;
+        this.endLocation = endLocation;
+        this.interval = interval;
+        this.particles = particles;
+        this.locations = locations;
+        this.center = center;
+    }
+
     /**
      * Based on instance's fields creates and fills an array with locations for the particles to be spawned in
      * as well as setting the center location property.
@@ -375,14 +384,19 @@ public class ParticleLine implements ParticleConstruct {
         return entities;
     }
 
+    @Override
     public ParticleLine clone() {
-        ParticleLine particleLine = new ParticleLine(startLocation.clone(), endLocation.clone(), interval);
-        particleLine.updateParticles(particles);
-        return particleLine;
+        RegularParticle[] newParticles = new RegularParticle[particles.length];
+        Location[] newLocations = new Location[locations.length];
+        for (int i = 0; i < particles.length; i++) {
+            newParticles[i] = particles[i].clone();
+            newLocations[i] = locations[i].clone();
+        }
+        return new ParticleLine(startLocation, endLocation, interval, newParticles, newLocations, center);
     }
 
     /**
-     * Spawns the ParticleLine all at once.
+     * Spawns the {@link ParticleLine} all at once.
      */
     public void spawn() {
         ParticleConstructSpawnEvent event = new ParticleConstructSpawnEvent(this);
