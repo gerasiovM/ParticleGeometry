@@ -253,32 +253,24 @@ public class ParticleLine implements ParticleConstruct {
      * @param axis           The {@link Axis} enum used to determine around which axis to rotate.
      */
     public void rotateAroundAxis(double rotation, Location rotationCenter, Axis axis) {
-        double[][] rotationMatrix;
-        switch (axis.name()) {
-            case "X":
-                rotationMatrix = new double[][] {
-                        {1, 0, 0},
-                        {0, Math.cos(rotation), -Math.sin(rotation)},
-                        {0, Math.sin(rotation), Math.cos(rotation)}
-                };
-                break;
-            case "Y":
-                rotationMatrix = new double[][] {
-                        {Math.cos(rotation), 0, Math.sin(rotation)},
-                        {0, 1, 0},
-                        {-Math.sin(rotation), 0, Math.cos(rotation)}
-                };
-                break;
-            case "Z":
-                rotationMatrix = new double[][] {
-                        {Math.cos(rotation), -Math.sin(rotation), 0},
-                        {Math.sin(rotation), Math.cos(rotation), 0},
-                        {0, 0, 1}
-                };
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid axis");
-        }
+        double[][] rotationMatrix = switch (axis.name()) {
+            case "X" -> new double[][]{
+                    {1, 0, 0},
+                    {0, Math.cos(rotation), -Math.sin(rotation)},
+                    {0, Math.sin(rotation), Math.cos(rotation)}
+            };
+            case "Y" -> new double[][]{
+                    {Math.cos(rotation), 0, Math.sin(rotation)},
+                    {0, 1, 0},
+                    {-Math.sin(rotation), 0, Math.cos(rotation)}
+            };
+            case "Z" -> new double[][]{
+                    {Math.cos(rotation), -Math.sin(rotation), 0},
+                    {Math.sin(rotation), Math.cos(rotation), 0},
+                    {0, 0, 1}
+            };
+            default -> throw new IllegalArgumentException("Invalid axis");
+        };
         for (int i = 0; i < locations.length; i++) {
             Location location = locations[i].clone().subtract(rotationCenter.clone());
             locations[i] = rotationCenter.clone().add(new Location(
