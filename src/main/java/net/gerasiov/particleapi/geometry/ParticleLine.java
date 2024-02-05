@@ -35,13 +35,23 @@ public class ParticleLine implements ParticleConstruct {
      *
      * @throws IllegalArgumentException if the interval is negative.
      */
-    public ParticleLine(@NotNull Location startLocation, @NotNull Location endLocation, double interval) {
+    public ParticleLine(Location startLocation, Location endLocation, double interval) {
         this.startLocation = startLocation;
         this.endLocation = endLocation;
         if (interval <= 0) {
             throw new IllegalArgumentException("Interval must be bigger than 0");
         }
         this.interval = calculateRealInterval(startLocation, endLocation, interval);
+        fillLocationArray();
+    }
+
+    public ParticleLine(Location startLocation, Location endLocation, int numOfPoints) {
+        this.startLocation = startLocation;
+        this.endLocation = endLocation;
+        if (numOfPoints < 2) {
+            throw new IllegalArgumentException("Number of points must be at least 2");
+        }
+        this.interval = calculateRealInterval(startLocation, endLocation, startLocation.distance(endLocation) / numOfPoints);
         fillLocationArray();
     }
 
